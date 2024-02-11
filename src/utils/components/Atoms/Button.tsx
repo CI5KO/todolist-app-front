@@ -1,11 +1,12 @@
-import { IconType } from "react-icons";
+import { clsx } from "clsx";
+import type { IconType } from "react-icons";
 
 interface ButtonProps {
-  children: string;
+  children?: string;
   color?: "Blue" | "Green" | "Red" | "Orange" | "Purple";
   disabled?: boolean;
   Icon?: IconType;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
 }
 
 const getBorderColor = (color: string | undefined) => {
@@ -36,19 +37,22 @@ export default function Button({
   return (
     <button
       disabled={disabled}
-      className={`flex justify-between border-2 rounded-full w-fit px-4 py-1.5 ${
+      className={clsx([
+        "flex justify-between border-2 rounded-full w-full",
+        children ? "px-4" : "px-1.5",
+        "py-1.5",
         disabled
           ? "border-gray-500/50"
-          : `shadow-md hover:scale-105 transition duration-75 ${borderColor}`
-      }`}
+          : `shadow-md hover:scale-105 transition duration-75 ${borderColor}`,
+      ])}
       onClick={onClick}
     >
       {Icon && <Icon className="self-center" />}
-      <div
-        className={`text-center text-sm font-bold antialiased self-center w-full p-1 `}
-      >
-        {children}
-      </div>
+      {children && (
+        <p className="text-center text-sm font-bold antialiased self-center w-full p-1">
+          {children}
+        </p>
+      )}
     </button>
   );
 }
