@@ -1,3 +1,16 @@
 {
-  "test": "Hola a todos"
+  "test": "Hola a todos",
+  "task": {
+    "status": {
+      "name": "Estado",
+      "id": ["No Hecho", "Trabajando", "Terminado", "N/A"]
+    },
+    "priority": { "name": "Prioridad", "id": ["Bajo", "Medio", "Alta", "N/A"] }
+  },
+  "button": {
+    "addTask": "Agregar Tarea",
+    "deleteTask": "Eliminar Tarea",
+    "editTask": "Editar Tarea",
+    "saveTask": "Guardar Tarea"
+  }
 }

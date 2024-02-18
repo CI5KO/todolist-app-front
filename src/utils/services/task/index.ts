@@ -18,8 +18,8 @@ class TaskView {
     else return task;
   }
 
-  public static async delete(tastTitle: string): Promise<void> {
-    if (IS_MOCK_BACKEND) return TaskMock.delete(tastTitle);
+  public static async delete(taskID: string): Promise<void> {
+    if (IS_MOCK_BACKEND) return TaskMock.delete(taskID);
   }
 }
 

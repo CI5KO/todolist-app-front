@@ -2,17 +2,24 @@
 
 import { useEffect, useState } from "react";
 
-import { Button, Input, Modal, Select } from "@/utils/components";
+import { Button, Input, Modal, Select, TaskCard } from "@/utils/components";
 
 import TaskView from "@/utils/services/task";
 import type { Task } from "@/utils/services/task/types";
 
-import { MdAdd, MdDelete } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 
-const RenderTasks = () => {
+export default function ClientPage({
+  params: { lang },
+  dictionary,
+}: {
+  params: { lang: string };
+  dictionary: any;
+}) {
+  const [task, setTask] = useState<Task>();
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [mounted, setMounted] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
 
   const fetchTasks = async () => {
     try {
@@ -23,65 +30,33 @@ const RenderTasks = () => {
     }
   };
 
-  const onDelete = async (title: string) => {
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const handleAddTask = async () => {
     try {
-      await TaskView.delete(title);
-      setTasks((prev) => prev.filter((task) => task.title !== title));
-      console.log("deleted");
+      const response = await TaskView.create(task as Task);
+      setTasks((prev) => [...prev, response]);
+      setModal(false);
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    fetchTasks();
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return <>Loading...</>;
-
-  return (
-    <div className="grid gap-4 py-4">
-      {tasks.map((task, index) => (
-        <div key={index}>
-          <div className="border-2 border-blue-500 rounded-2xl p-4">
-            <h1 className="text-xl font-semibold text-center pb-2">
-              {task.title}
-            </h1>
-            <p>{task.description}</p>
-            <div className="grid grid-cols-2 py-4">
-              <p className="text-center">{task.status}</p>
-              <p className="text-center">{task.priority}</p>
-            </div>
-            <Button
-              color="Red"
-              Icon={MdDelete}
-              onClick={() => onDelete(task.title as string)}
-            >
-              Delete
-            </Button>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default function ClientPage({
-  params: { lang },
-  dictionary,
-}: {
-  params: { lang: string };
-  dictionary: any;
-}) {
-  const [task, setTask] = useState<Task>();
-  const [modal, setModal] = useState<boolean>(false);
-
-  const handleAddTask = async () => {
+  const onDelete = async (id: string) => {
     try {
-      const response = await TaskView.create(task as Task);
-      console.log("Task added! , ", response);
-      setModal(false);
+      await TaskView.delete(id);
+      setTasks((prev) => prev.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const saveChanges = async (task: Task) => {
+    try {
+      const response = await TaskView.update(task);
+      setTasks((prev) => prev.map((t) => (t.id === task.id ? response : t)));
     } catch (error) {
       console.error(error);
     }
@@ -89,8 +64,16 @@ export default function ClientPage({
 
   return (
     <main className="grid">
-      <Modal isOpen={modal} onClose={() => setModal(false)}>
-        <h1 className="text-center text-2xl pb-4 font-semibold">Add task</h1>
+      <Modal
+        isOpen={modal}
+        onClose={() => {
+          setModal(false);
+          setTask(undefined);
+        }}
+      >
+        <h1 className="text-center text-2xl pb-4 font-semibold">
+          {dictionary.button.addTask}
+        </h1>
         <div className="grid gap-2">
           <Input
             type="text"
@@ -107,22 +90,22 @@ export default function ClientPage({
             }
           />
           <Select
-            displayOption="Status"
+            displayOption={dictionary.task.status.name}
             options={[
-              { label: "Not done", value: 0 },
-              { label: "Working", value: 1 },
-              { label: "Done", value: 2 },
+              { label: dictionary.task.status.id[0], value: 0 },
+              { label: dictionary.task.status.id[1], value: 1 },
+              { label: dictionary.task.status.id[2], value: 2 },
             ]}
             onChange={(event) =>
               setTask({ ...task, status: event.target.value })
             }
           />
           <Select
-            displayOption="Priority"
+            displayOption={dictionary.task.priority.name}
             options={[
-              { label: "Low", value: 0 },
-              { label: "Medium", value: 1 },
-              { label: "High", value: 2 },
+              { label: dictionary.task.priority.id[0], value: 0 },
+              { label: dictionary.task.priority.id[1], value: 1 },
+              { label: dictionary.task.priority.id[2], value: 2 },
             ]}
             onChange={(event) =>
               setTask({ ...task, priority: event.target.value })
@@ -130,7 +113,14 @@ export default function ClientPage({
           />
         </div>
         <div className="grid grid-cols-2 gap-2 pt-2">
-          <Button Icon={IoMdClose} color="Red" onClick={() => setModal(false)}>
+          <Button
+            Icon={IoMdClose}
+            color="Red"
+            onClick={() => {
+              setModal(false);
+              setTask(undefined);
+            }}
+          >
             Cancel
           </Button>
           <Button Icon={MdAdd} color="Green" onClick={() => handleAddTask()}>
@@ -140,10 +130,20 @@ export default function ClientPage({
       </Modal>
       <div className="justify-self-center">
         <Button Icon={MdAdd} onClick={() => setModal(true)}>
-          Add task
+          {dictionary.button.addTask}
         </Button>
       </div>
-      <RenderTasks />
+      <div className="grid gap-4 py-4">
+        {tasks.map((task, index) => (
+          <TaskCard
+            key={index}
+            task={task}
+            dictionary={dictionary}
+            onDelete={onDelete}
+            onEdit={(task) => console.log(task)}
+          />
+        ))}
+      </div>
     </main>
   );
 }
