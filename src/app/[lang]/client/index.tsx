@@ -23,7 +23,9 @@ export default function ClientPage({
 
   const fetchTasks = async () => {
     try {
-      const response = await TaskView.get("task");
+      const response = await TaskView.get(
+        process.env.NEXT_PUBLIC_MOCK_USER_ID as string
+      );
       setTasks(response);
     } catch (error) {
       console.error(error);
