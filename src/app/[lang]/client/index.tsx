@@ -1,76 +1,86 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy } from 'react'
 
-import { Button, Input, Modal, Select, TaskCard } from "@/utils/components";
+import { Button, Input, Modal, Select } from '@/utils/components'
+const TaskCard = lazy(() => import('@/utils/components/Molecules/TaskCard'))
+import Skeleton from '@/utils/components/Molecules/TaskCard/Skeleton'
 
-import TaskView from "@/utils/services/task";
-import type { Task } from "@/utils/services/task/types";
+import TaskView from '@/utils/services/task'
+import type { Task } from '@/utils/services/task/types'
 
-import { MdAdd } from "react-icons/md";
-import { IoMdClose } from "react-icons/io";
+import { MdAdd } from 'react-icons/md'
+import { IoMdClose } from 'react-icons/io'
 
 export default function ClientPage({
   params: { lang },
   dictionary,
 }: {
-  params: { lang: string };
-  dictionary: any;
+  params: { lang: string }
+  dictionary: any
 }) {
-  const [task, setTask] = useState<Task>();
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [modal, setModal] = useState<boolean>(false);
+  const [task, setTask] = useState<Task>()
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [modal, setModal] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const fetchTasks = async () => {
     try {
+      setIsLoading(true)
       const response = await TaskView.get(
         process.env.NEXT_PUBLIC_MOCK_USER_ID as string
-      );
-      setTasks(response);
+      )
+      setTasks(response)
     } catch (error) {
-      console.error(error);
+      console.error(error)
+    } finally {
+      setIsLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    fetchTasks()
+  }, [])
 
   const handleAddTask = async () => {
     try {
-      const response = await TaskView.create(task as Task);
-      setTasks((prev) => [...prev, response]);
-      setModal(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      const response = await TaskView.create({
+        ...task,
+        userId: process.env.NEXT_PUBLIC_MOCK_USER_ID as string,
+      } as Task)
 
-  const onDelete = async (id: string) => {
-    try {
-      await TaskView.delete(id);
-      setTasks((prev) => prev.filter((task) => task.id !== id));
+      setTasks((prev) => [...prev, response])
+      setModal(false)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
+
+  const onDelete = async (uuid: string) => {
+    try {
+      await TaskView.delete(uuid)
+      setTasks((prev) => prev.filter((task) => task.uuid !== uuid))
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const saveChanges = async (task: Task) => {
     try {
-      const response = await TaskView.update(task);
-      setTasks((prev) => prev.map((t) => (t.id === task.id ? response : t)));
+      const response = await TaskView.update(task)
+      setTasks((prev) => prev.map((t) => (t.id === task.id ? response : t)))
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <main className="grid">
       <Modal
         isOpen={modal}
         onClose={() => {
-          setModal(false);
-          setTask(undefined);
+          setModal(false)
+          setTask(undefined)
         }}
       >
         <h1 className="text-center text-2xl pb-4 font-semibold">
@@ -119,8 +129,8 @@ export default function ClientPage({
             Icon={IoMdClose}
             color="Red"
             onClick={() => {
-              setModal(false);
-              setTask(undefined);
+              setModal(false)
+              setTask(undefined)
             }}
           >
             Cancel
@@ -136,16 +146,33 @@ export default function ClientPage({
         </Button>
       </div>
       <div className="grid gap-4 py-4">
-        {tasks.map((task, index) => (
-          <TaskCard
-            key={index}
-            task={task}
-            dictionary={dictionary}
-            onDelete={onDelete}
-            onEdit={(task) => console.log(task)}
-          />
-        ))}
+        {/* Fix this thing later */}
+        {isLoading ? (
+          <>
+            <Skeleton />
+            <Skeleton />
+          </>
+        ) : (
+          <Suspense
+            fallback={
+              <>
+                <Skeleton />
+                <Skeleton />
+              </>
+            }
+          >
+            {tasks.map((task, index) => (
+              <TaskCard
+                key={index}
+                task={task}
+                dictionary={dictionary}
+                onDelete={onDelete}
+                onEdit={(task) => console.log(task)}
+              />
+            ))}
+          </Suspense>
+        )}
       </div>
     </main>
-  );
+  )
 }
