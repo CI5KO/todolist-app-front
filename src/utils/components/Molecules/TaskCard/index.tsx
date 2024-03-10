@@ -31,12 +31,7 @@ export default function TaskCard({
         </p>
       </div>
       <div className="grid md:grid-cols-2 gap-4">
-        <Button
-          color="Orange"
-          Icon={MdModeEdit}
-          onClick={() => onEdit(task)}
-          disabled
-        >
+        <Button color="Orange" Icon={MdModeEdit} onClick={() => onEdit(task)}>
           {dictionary.button.editTask}
         </Button>
         <Button

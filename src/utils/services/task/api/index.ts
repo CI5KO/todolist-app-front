@@ -26,10 +26,13 @@ class TaskService {
 
   static async update(task: Task): Promise<Task> {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_ROUTE}/task/${task.id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_ROUTE}/task/${task.uuid}`,
       {
         method: 'PUT',
-        body: JSON.stringify(task),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ task }),
       }
     )
     const updatedTask: Task = await response.json()

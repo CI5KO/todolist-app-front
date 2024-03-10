@@ -1,22 +1,24 @@
 interface SelectProps {
-  onChange?: (e?: any) => void;
-  displayOption?: string;
-  options?: Option[];
-  primary?: any;
+  onChange?: (e?: any) => void
+  displayOption?: string
+  options?: Option[]
+  primary?: PrimaryOption
 }
 
 type Option = {
-  value: string | number;
-  label: string;
-  selected?: boolean;
-};
+  value: string | number
+  label: string
+  selected?: boolean
+}
+
+interface PrimaryOption extends Omit<Option, 'selected'> {}
 
 export default function Select({
   onChange,
-  displayOption = "Main Option",
+  displayOption = 'Main Option',
   options = [
-    { value: 1, label: "Option 1" },
-    { value: 2, label: "Option 2" },
+    { value: 1, label: 'Option 1' },
+    { value: 2, label: 'Option 2' },
   ],
   primary,
 }: SelectProps) {
@@ -25,7 +27,6 @@ export default function Select({
       className="border-2 border-blue-500 w-full rounded-full px-4 py-2 shadow-md hover:scale-105 transition duration-75 bg-transparent"
       onChange={onChange}
       value={primary?.value}
-      defaultValue="DEFAULT"
     >
       <option value="DEFAULT" disabled>
         {displayOption}
@@ -39,5 +40,5 @@ export default function Select({
         </option>
       ))}
     </select>
-  );
+  )
 }
