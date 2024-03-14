@@ -1,30 +1,30 @@
-import { clsx } from "clsx";
-import type { IconType } from "react-icons";
+import { clsx } from 'clsx'
+import type { IconType } from 'react-icons'
 
 interface ButtonProps {
-  children?: string;
-  color?: "Blue" | "Green" | "Red" | "Orange" | "Purple";
-  disabled?: boolean;
-  Icon?: IconType;
-  onClick?: (e: any) => void;
+  children?: string
+  color?: 'Blue' | 'Green' | 'Red' | 'Orange' | 'Purple'
+  disabled?: boolean
+  Icon?: IconType
+  onClick?: (e: any) => void
 }
 
 const getBorderColor = (color: string | undefined) => {
   switch (color) {
-    case "Blue":
-      return "border-blue-500";
-    case "Green":
-      return "border-green-500";
-    case "Red":
-      return "border-red-500";
-    case "Orange":
-      return "border-orange-500";
-    case "Purple":
-      return "border-purple-500";
+    case 'Blue':
+      return 'border-blue-500'
+    case 'Green':
+      return 'border-green-500'
+    case 'Red':
+      return 'border-red-500'
+    case 'Orange':
+      return 'border-orange-500'
+    case 'Purple':
+      return 'border-purple-500'
     default:
-      return "border-blue-500";
+      return 'border-blue-500'
   }
-};
+}
 
 export default function Button({
   disabled = false,
@@ -33,17 +33,15 @@ export default function Button({
   Icon,
   onClick,
 }: ButtonProps) {
-  const borderColor = getBorderColor(color);
+  const borderColor = getBorderColor(color)
   return (
     <button
       disabled={disabled}
       className={clsx([
-        "flex justify-between border-2 rounded-full w-full",
-        children ? "px-4" : "px-1.5",
-        "py-1.5",
-        disabled
-          ? "border-gray-500/50"
-          : `shadow-md hover:scale-105 transition duration-75 ${borderColor}`,
+        'flex justify-between border-2 rounded-lg w-full',
+        children ? 'px-4' : 'px-1.5',
+        'py-1.5',
+        disabled ? 'border-gray-500/50' : `shadow-md ${borderColor}`,
       ])}
       onClick={onClick}
     >
@@ -54,5 +52,5 @@ export default function Button({
         </p>
       )}
     </button>
-  );
+  )
 }
