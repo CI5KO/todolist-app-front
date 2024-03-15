@@ -1,4 +1,9 @@
+'use server'
+
+import { login } from './server/actions'
+
 import ClientPage from './client'
+
 import { type AvailableLang, getDictionary } from '@/utils/lang'
 
 export default async function Home({
@@ -8,5 +13,7 @@ export default async function Home({
 }) {
   const dictionary: any = await getDictionary(lang)
 
-  return <ClientPage params={{ lang }} dictionary={dictionary} />
+  return (
+    <ClientPage params={{ lang }} dictionary={dictionary} serverLogin={login} />
+  )
 }

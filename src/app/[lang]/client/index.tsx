@@ -4,18 +4,26 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import { Button, Input } from '@/utils/components'
-
 import BgImage from '../../../../public/img/bg-primary.jpg'
 
+import { type LoginResponse } from '@/utils/services/user/types'
+
 export default function ClientPage({
+  serverLogin,
   params: { lang },
   dictionary,
 }: {
+  serverLogin(email: string, password: string): Promise<LoginResponse>
   params: { lang: string }
   dictionary: any
 }) {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+
+  const handleLogin = async () => {
+    const response = await serverLogin(email, password)
+    console.log(response)
+  }
 
   return (
     <>
@@ -44,7 +52,7 @@ export default function ClientPage({
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button onClick={() => console.log('clicked')}>Login</Button>
+            <Button onClick={handleLogin}>Login</Button>
           </div>
         </div>
       </section>
