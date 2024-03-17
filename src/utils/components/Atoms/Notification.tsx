@@ -65,7 +65,7 @@ export default function Notification({
       <h1 className="pb-2 text-lg font-semibold px-4 pt-4">{title}</h1>
       <div className="px-4">{children}</div>
       <div
-        className="relative bottom-0 left-0 transition[width] h-[5px] bg-white mt-4"
+        className="relative bottom-0 left-0 h-[5px] bg-white mt-4 transition-all duration-100 ease-linear"
         style={{ width: `${progress}%` }}
       />
     </div>

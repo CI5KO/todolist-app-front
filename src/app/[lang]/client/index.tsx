@@ -3,10 +3,17 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-import { Button, Input } from '@/utils/components'
+import { Button, Input, Notification } from '@/utils/components'
 import BgImage from '../../../../public/img/bg-primary.jpg'
 
 import { type LoginResponse } from '@/utils/services/user/types'
+
+function validateEmailInput(email: string): boolean {
+  const RegExp =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+  return RegExp.test(String(email).toLowerCase())
+}
 
 export default function ClientPage({
   serverLogin,
@@ -19,14 +26,40 @@ export default function ClientPage({
 }) {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [honeypot, setHoneypot] = useState<string | undefined>()
+
+  const [notification, setNotification] = useState<boolean>(false)
 
   const handleLogin = async () => {
+    if (honeypot) {
+      console.log(
+        '%cBot Detected! \nAccess Denied',
+        'color: red; font-size: 20px'
+      )
+      return
+    }
+
     const response = await serverLogin(email, password)
-    console.log(response)
+    if (!response.jwt) {
+      setNotification(true)
+      return
+    }
   }
+
+  const isSubmitDisable = (): boolean =>
+    email === '' || password === '' || !validateEmailInput(email)
 
   return (
     <>
+      <Notification
+        title="Login Error"
+        type="error"
+        activation={notification}
+        timeInSeconds={2}
+        onClose={() => setNotification(false)}
+      >
+        Something went wrong
+      </Notification>
       <Image
         src={BgImage.src}
         alt="background image"
@@ -52,7 +85,17 @@ export default function ClientPage({
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button onClick={handleLogin}>Login</Button>
+            <div style={{ display: 'none' }} aria-hidden="true">
+              <input
+                title="Leave this field empty"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
+              />
+            </div>
+            <Button onClick={handleLogin} disabled={isSubmitDisable()}>
+              Login
+            </Button>
           </div>
         </div>
       </section>
