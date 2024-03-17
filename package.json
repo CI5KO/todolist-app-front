@@ -1,6 +1,6 @@
 {
   "name": "todolist-app-front",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "private": true,
   "author": {
     "name": "Hector Oliva",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.0",
+    "js-cookie": "^3.0.5",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
@@ -22,6 +23,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

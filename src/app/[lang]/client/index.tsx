@@ -1,7 +1,10 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+
+import { saveJWT } from '@/utils/services/user/cookies'
 
 import { Button, Input, Notification } from '@/utils/components'
 import BgImage from '../../../../public/img/bg-primary.jpg'
@@ -24,9 +27,11 @@ export default function ClientPage({
   params: { lang: string }
   dictionary: any
 }) {
+  const router = useRouter()
+
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [honeypot, setHoneypot] = useState<string | undefined>()
+  const [honeypot, setHoneypot] = useState<string | undefined>(undefined)
 
   const [notification, setNotification] = useState<boolean>(false)
 
@@ -40,10 +45,14 @@ export default function ClientPage({
     }
 
     const response = await serverLogin(email, password)
+
     if (!response.jwt) {
       setNotification(true)
       return
     }
+
+    saveJWT(response.jwt)
+    router.push(`/${lang}/home`)
   }
 
   const isSubmitDisable = (): boolean =>
