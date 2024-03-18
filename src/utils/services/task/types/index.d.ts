@@ -1,5 +1,4 @@
 export type Task = {
-  id?: string
   uuid?: string
   userId?: string
   title?: string
@@ -7,3 +6,5 @@ export type Task = {
   status?: number
   priority?: number
 }
+
+export interface TaskRegister extends Omit<Task, 'id' | 'uuid'> {}

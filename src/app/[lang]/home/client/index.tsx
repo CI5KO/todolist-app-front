@@ -7,7 +7,7 @@ import { Button, Input, Modal, Select, EditTask } from '@/utils/components'
 import Skeleton from '@/utils/components/Molecules/TaskCard/Skeleton'
 
 import TaskView from '@/utils/services/task'
-import type { Task } from '@/utils/services/task/types'
+import type { Task, TaskRegister } from '@/utils/services/task/types'
 
 import { type UserLogged } from '@/utils/services/user/types'
 
@@ -32,7 +32,15 @@ export default function ClientPage({
   user: UserLogged
   tasksData: Task[]
 }) {
-  const [task, setTask] = useState<Task>()
+  const taskStateDefault: TaskRegister = {
+    title: '',
+    description: '',
+    status: undefined,
+    priority: undefined,
+    userId: user.uuid,
+  }
+  const [task, setTask] = useState<TaskRegister>(taskStateDefault)
+
   const [tasks, setTasks] = useState<Task[]>(tasksData)
 
   const [modal, setModal] = useState<boolean>(false)
@@ -46,6 +54,7 @@ export default function ClientPage({
       } as Task)
 
       setTasks((prev) => [...prev, response])
+      setTask(taskStateDefault)
       setModal(false)
     } catch (error) {
       console.error(error)
@@ -54,7 +63,7 @@ export default function ClientPage({
 
   const onUpdate = async (updatedTask: Task) => {
     try {
-      const response = await TaskView.update(updatedTask)
+      await TaskView.update(updatedTask)
       setTasks((prev) =>
         prev.map((task) =>
           task.uuid === updatedTask.uuid ? updatedTask : task
@@ -83,7 +92,7 @@ export default function ClientPage({
         onSave={onUpdate}
         onClose={() => {
           setAside(false)
-          setTask(undefined)
+          setTask(taskStateDefault)
         }}
       />
       <main className="grid">
@@ -91,7 +100,7 @@ export default function ClientPage({
           isOpen={modal}
           onClose={() => {
             setModal(false)
-            setTask(undefined)
+            setTask(taskStateDefault)
           }}
         >
           <h1 className="text-center text-2xl pb-4 font-semibold">
@@ -101,6 +110,7 @@ export default function ClientPage({
             <Input
               type="text"
               title="Title"
+              value={task.title}
               onChange={(event) =>
                 setTask({ ...task, title: event.target.value })
               }
@@ -108,6 +118,7 @@ export default function ClientPage({
             <Input
               type="text"
               title="Description"
+              value={task.description}
               onChange={(event) =>
                 setTask({ ...task, description: event.target.value })
               }
@@ -141,7 +152,7 @@ export default function ClientPage({
               color="Red"
               onClick={() => {
                 setModal(false)
-                setTask(undefined)
+                setTask(taskStateDefault)
               }}
             >
               Cancel

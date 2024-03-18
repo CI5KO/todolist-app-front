@@ -74,8 +74,8 @@ export default function EditTask({
         <Select
           displayOption={dictionary.task.status.name}
           primary={{
-            label: dictionary.task.status.id[Number(editTask.status)],
-            value: Number(editTask.status),
+            label: dictionary.task.status.id[editTask?.status as number],
+            value: editTask?.status as number,
           }}
           options={[
             { label: dictionary.task.status.id[0], value: 0 },
@@ -83,14 +83,14 @@ export default function EditTask({
             { label: dictionary.task.status.id[2], value: 2 },
           ]}
           onChange={(event) =>
-            setEditTask({ ...editTask, status: Number(event.target.value) })
+            setEditTask({ ...editTask, status: event.target.value })
           }
         />
         <Select
           displayOption={dictionary.task.priority.name}
           primary={{
-            label: dictionary.task.priority.id[Number(editTask.priority)],
-            value: Number(editTask.priority),
+            label: dictionary.task.priority.id[editTask?.priority as number],
+            value: editTask?.priority as number,
           }}
           options={[
             { label: dictionary.task.priority.id[0], value: 0 },

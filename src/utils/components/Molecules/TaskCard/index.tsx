@@ -23,11 +23,11 @@ export default function TaskCard({
       <div className="grid md:grid-cols-2 py-4 gap-4">
         <p className="text-center p-2 rounded-xl bg-red-500">
           {dictionary.task.status.name}:{' '}
-          {dictionary.task.status.id[task.status || 3]}
+          {dictionary.task.status.id[task.status as number]}
         </p>
         <p className="text-center p-2 rounded-xl bg-green-500">
           {dictionary.task.priority.name}:{' '}
-          {dictionary.task.priority.id[task.priority || 3]}
+          {dictionary.task.priority.id[task.priority as number]}
         </p>
       </div>
       <div className="grid md:grid-cols-2 gap-4">

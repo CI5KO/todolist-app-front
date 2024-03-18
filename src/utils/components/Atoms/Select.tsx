@@ -24,21 +24,22 @@ export default function Select({
 }: SelectProps) {
   return (
     <select
-      className="border-2 border-blue-500 w-full rounded-full px-4 py-2 shadow-md hover:scale-105 transition duration-75 bg-transparent"
+      className="border-2 border-blue-500 w-full rounded-lg px-4 py-2 shadow-md hover:scale-105 transition duration-75 bg-transparent"
       onChange={onChange}
       value={primary?.value}
     >
       <option value="DEFAULT" disabled>
         {displayOption}
       </option>
-      {primary?.value && (
-        <option value={primary?.value}>{primary?.label}</option>
+      {primary && <option value={primary?.value}>{primary?.label}</option>}
+      {options.map(
+        (option, index) =>
+          option.value !== primary?.value && (
+            <option value={option.value} key={index}>
+              {option.label}
+            </option>
+          )
       )}
-      {options.map((option, index) => (
-        <option value={option.value} key={index}>
-          {option.label}
-        </option>
-      ))}
     </select>
   )
 }

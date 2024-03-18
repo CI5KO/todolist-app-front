@@ -1,16 +1,15 @@
 export interface User {
-  id: string
   uuid: string
   name: string
   email: string
   password: string
 }
 
-export interface UserRegister extends Omit<User, 'id' | 'uuid'> {}
+export interface UserRegister extends Omit<User, 'uuid'> {}
 
-export interface UserLoginProps extends Omit<User, 'id' | 'uuid' | 'name'> {}
+export interface UserLoginProps extends Omit<User, 'uuid' | 'name'> {}
 
-export interface UserLogged extends Omit<User, 'id' | 'password'> {
+export interface UserLogged extends Omit<User, 'password'> {
   exp: number
   iat: number
 }
