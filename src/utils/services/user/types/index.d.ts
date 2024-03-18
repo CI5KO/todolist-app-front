@@ -8,9 +8,12 @@ export interface User {
 
 export interface UserRegister extends Omit<User, 'id' | 'uuid'> {}
 
-export interface UserLogged extends Omit<User, 'id' | 'password'> {}
-
 export interface UserLoginProps extends Omit<User, 'id' | 'uuid' | 'name'> {}
+
+export interface UserLogged extends Omit<User, 'id' | 'password'> {
+  exp: number
+  iat: number
+}
 
 export interface LoginResponse {
   jwt: string | undefined

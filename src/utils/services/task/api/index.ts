@@ -1,13 +1,10 @@
-import { Task } from '../types'
+'use client'
+
+import { getJWT } from '../../user/cookies'
+import { type Task } from '../types'
 
 class TaskService {
-  static async getAll(userId: string): Promise<Task[]> {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_ROUTE}/task/user-id/${userId}`
-    )
-    const tasks: Task[] = await response.json()
-    return tasks
-  }
+  private static readonly jwt: string | undefined = getJWT()
 
   static async create(task: Task): Promise<Task> {
     const response = await fetch(
@@ -16,6 +13,7 @@ class TaskService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.jwt}`,
         },
         body: JSON.stringify({ task }),
       }
@@ -31,6 +29,7 @@ class TaskService {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.jwt}`,
         },
         body: JSON.stringify({ task }),
       }
@@ -44,6 +43,10 @@ class TaskService {
       `${process.env.NEXT_PUBLIC_BACKEND_ROUTE}/task/${id}`,
       {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.jwt}`,
+        },
       }
     )
 

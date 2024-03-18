@@ -1,54 +1,48 @@
 'use client'
 
-import { useEffect, useState, Suspense, lazy } from 'react'
+import dynamic from 'next/dynamic'
+import { useState, Suspense } from 'react'
 
 import { Button, Input, Modal, Select, EditTask } from '@/utils/components'
 import Skeleton from '@/utils/components/Molecules/TaskCard/Skeleton'
 
-const TaskCard = lazy(() => import('@/utils/components/Molecules/TaskCard'))
-
 import TaskView from '@/utils/services/task'
 import type { Task } from '@/utils/services/task/types'
+
+import { type UserLogged } from '@/utils/services/user/types'
 
 import { MdAdd } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
 
+const TaskCard = dynamic(
+  () => import('@/utils/components/Molecules/TaskCard'),
+  {
+    ssr: false,
+  }
+)
+
 export default function ClientPage({
   params: { lang },
   dictionary,
+  user,
+  tasksData,
 }: {
   params: { lang: string }
   dictionary: any
+  user: UserLogged
+  tasksData: Task[]
 }) {
   const [task, setTask] = useState<Task>()
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<Task[]>(tasksData)
+
   const [modal, setModal] = useState<boolean>(false)
   const [aside, setAside] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-
-  const fetchTasks = async () => {
-    try {
-      setIsLoading(true)
-      const response = await TaskView.get(
-        process.env.NEXT_PUBLIC_MOCK_USER_ID as string
-      )
-      setTasks(response)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchTasks()
-  }, [])
 
   const onCreate = async () => {
     try {
       const response = await TaskView.create({
         ...task,
-        userId: process.env.NEXT_PUBLIC_MOCK_USER_ID as string,
+        userId: user.uuid,
       } as Task)
 
       setTasks((prev) => [...prev, response])
@@ -163,35 +157,27 @@ export default function ClientPage({
           </Button>
         </div>
         <div className="grid gap-4 py-4">
-          {/* Fix this thing later */}
-          {isLoading ? (
-            <div className="grid gap-4 py-4">
-              <Skeleton />
-              <Skeleton />
-            </div>
-          ) : (
-            <Suspense
-              fallback={
-                <div className="grid gap-4 py-4">
-                  <Skeleton />
-                  <Skeleton />
-                </div>
-              }
-            >
-              {tasks.map((task, index) => (
-                <TaskCard
-                  key={index}
-                  task={task}
-                  dictionary={dictionary}
-                  onDelete={onDelete}
-                  onEdit={(task) => {
-                    setAside(!aside)
-                    setTask(task)
-                  }}
-                />
-              ))}
-            </Suspense>
-          )}
+          <Suspense
+            fallback={
+              <div className="grid gap-4 py-4">
+                <Skeleton />
+                <Skeleton />
+              </div>
+            }
+          >
+            {tasks.map((task, index) => (
+              <TaskCard
+                key={index}
+                task={task}
+                dictionary={dictionary}
+                onDelete={onDelete}
+                onEdit={(task) => {
+                  setAside(!aside)
+                  setTask(task)
+                }}
+              />
+            ))}
+          </Suspense>
         </div>
       </main>
     </>
