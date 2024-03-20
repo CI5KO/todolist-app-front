@@ -46,7 +46,7 @@ export default function EditTask({
 
   return (
     <aside
-      className="h-full w-full md:w-1/2 bg-white p-4 rounded-lg shadow-lg fixed top-0 right-0 z-10 flex flex-col gap-4 justify-center items-center transition-all duration-300 ease-in-out"
+      className="h-full w-full md:w-1/2 bg-[#FAFAFA] dark:bg-[#232323] p-4 rounded-lg shadow-lg fixed top-0 right-0 z-10 flex flex-col gap-4 justify-center items-center transition-all duration-300 ease-in-out"
       style={{ transform: openState ? 'translateX(0)' : 'translateX(100%)' }}
     >
       <IoMdClose
@@ -54,7 +54,7 @@ export default function EditTask({
         onClick={onClose}
       />
       <h1>Edit Task</h1>
-      <section>
+      <section className="grid gap-4 w-4/5">
         <Input
           type="text"
           title="Title"

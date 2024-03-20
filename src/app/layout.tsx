@@ -1,12 +1,14 @@
-import "../utils/styles/globals.css";
+import '../utils/styles/globals.css'
 
-import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { NextThemeProvider } from '@/utils/context/theme.context'
 
-const APP_NAME = "Todo App";
-const APP_DEFAULT_TITLE = "Todo App";
-const APP_TITLE_TEMPLATE = "Todo App | %s";
-const APP_DESCRIPTION = "Todo App";
+import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
+
+const APP_NAME = 'Todo App'
+const APP_DEFAULT_TITLE = 'Todo App'
+const APP_TITLE_TEMPLATE = 'Todo App | %s'
+const APP_DESCRIPTION = 'Todo App'
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -15,28 +17,30 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   icons: {
-    icon: "/icon-256x256.png",
+    icon: '/icon-256x256.png',
   },
-  manifest: "/manifest.json",
+  manifest: '/manifest.json',
   description: APP_DESCRIPTION,
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: 'default',
     title: APP_DEFAULT_TITLE,
   },
   formatDetection: {
     telephone: false,
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: ReactNode;
+  children: ReactNode
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-[#FAFAFA] dark:bg-[#232323]">
+        <NextThemeProvider>{children}</NextThemeProvider>
+      </body>
     </html>
-  );
+  )
 }

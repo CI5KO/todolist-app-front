@@ -5,6 +5,7 @@ import { useState, Suspense } from 'react'
 
 import { Button, Input, Modal, Select, EditTask } from '@/utils/components'
 import Skeleton from '@/utils/components/Molecules/TaskCard/Skeleton'
+import ThemeSwitcher from '@/utils/components/Molecules/ThemeSwitcher'
 
 import TaskView from '@/utils/services/task'
 import type { Task, TaskRegister } from '@/utils/services/task/types'
@@ -166,6 +167,7 @@ export default function ClientPage({
           <Button Icon={MdAdd} onClick={() => setModal(true)}>
             {dictionary.button.addTask}
           </Button>
+          <ThemeSwitcher />
         </div>
         <div className="grid gap-4 py-4">
           <Suspense
