@@ -3,7 +3,14 @@
 import dynamic from 'next/dynamic'
 import { useState, Suspense } from 'react'
 
-import { Button, Input, Modal, Select, EditTask } from '@/utils/components'
+import {
+  Button,
+  Input,
+  Modal,
+  Select,
+  EditTask,
+  NavBar,
+} from '@/utils/components'
 import Skeleton from '@/utils/components/Molecules/TaskCard/Skeleton'
 import ThemeSwitcher from '@/utils/components/Molecules/ThemeSwitcher'
 
@@ -12,7 +19,7 @@ import type { Task, TaskRegister } from '@/utils/services/task/types'
 
 import { type UserLogged } from '@/utils/services/user/types'
 
-import { MdAdd } from 'react-icons/md'
+import { MdAdd, MdLibraryAdd } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
 
 const TaskCard = dynamic(
@@ -96,6 +103,7 @@ export default function ClientPage({
           setTask(taskStateDefault)
         }}
       />
+      <NavBar />
       <main className="grid">
         <Modal
           isOpen={modal}
@@ -164,9 +172,6 @@ export default function ClientPage({
           </div>
         </Modal>
         <div className="justify-self-center">
-          <Button Icon={MdAdd} onClick={() => setModal(true)}>
-            {dictionary.button.addTask}
-          </Button>
           <ThemeSwitcher />
         </div>
         <div className="grid gap-4 py-4">
@@ -192,6 +197,12 @@ export default function ClientPage({
             ))}
           </Suspense>
         </div>
+        <button
+          className="bg-green-500 rounded-xl p-4 w-fit absolute bottom-24 right-5 md:bottom-20 md:right-20"
+          onClick={() => setModal(true)}
+        >
+          <MdLibraryAdd className="text-3xl" />
+        </button>
       </main>
     </>
   )

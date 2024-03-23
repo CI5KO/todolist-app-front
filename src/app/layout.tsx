@@ -1,6 +1,7 @@
 import '../utils/styles/globals.css'
 
 import { NextThemeProvider } from '@/utils/context/theme.context'
+import montserrat from '@/utils/fonts/montserrat'
 
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
@@ -38,7 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[#FAFAFA] dark:bg-[#232323]">
+      <body
+        className={`${montserrat.className} bg-[#FAFAFA] dark:bg-[#232323]`}
+      >
         <NextThemeProvider>{children}</NextThemeProvider>
       </body>
     </html>

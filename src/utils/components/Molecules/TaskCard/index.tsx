@@ -1,6 +1,8 @@
 import { Button } from '../..'
 
 import { MdModeEdit, MdDelete } from 'react-icons/md'
+import { BsThreeDotsVertical } from 'react-icons/bs'
+
 import type { Task } from '@/utils/services/task/types'
 
 interface TaskCardProps {
@@ -17,7 +19,10 @@ export default function TaskCard({
   onEdit,
 }: TaskCardProps) {
   return (
-    <div className="border-2 border-blue-500 rounded-2xl p-4">
+    <div className="border-2 border-blue-500 rounded-2xl p-4 relative">
+      <div className="absolute top-5 right-5 rounded-full hover:bg-slate-400 dark:hover:bg-slate-800 hover:cursor-pointer">
+        <BsThreeDotsVertical className="p-2 text-3xl" />
+      </div>
       <h1 className="text-xl font-semibold text-center pb-2">{task.title}</h1>
       <p>{task.description}</p>
       <div className="grid md:grid-cols-2 py-4 gap-4">

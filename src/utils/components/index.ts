@@ -8,3 +8,4 @@ export { default as Notification } from './Atoms/Notification'
 // Molecules
 export { default as TaskCard } from './Molecules/TaskCard'
 export { default as EditTask } from './Molecules/EditTask'
+export { default as NavBar } from './Molecules/NavBar'
