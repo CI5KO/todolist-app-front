@@ -104,7 +104,7 @@ export default function ClientPage({
         }}
       />
       <NavBar />
-      <main className="grid">
+      <main className="grid md:pt-20">
         <Modal
           isOpen={modal}
           onClose={() => {
