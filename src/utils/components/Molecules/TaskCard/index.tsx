@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Button } from '../..'
 
 import useOutsideClick from '../../../hooks/useOutsideClick'
 
@@ -18,17 +17,55 @@ interface TaskCardProps {
   onEdit: (task: Task) => void
 }
 
-function ToggleOptionsMenu({ isOpen }: { isOpen: boolean }): JSX.Element {
+function ToggleOptionsMenu({
+  isOpen,
+  onEdit,
+  onDelete,
+  onClose,
+}: {
+  isOpen: boolean
+  onEdit: () => void
+  onDelete: () => void
+  onClose: () => void
+}): JSX.Element {
   return (
     <div
       className={`${
-        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-      } absolute right-4 top-12 bg-slate-400 dark:bg-slate-800 p-2 rounded-lg transition-all duration-200`}
+        isOpen ? 'opacity-100 flex' : 'opacity-0 pointer-events-none hidden'
+      } fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-50 ${
+        isOpen ? '' : 'hidden'
+      } md:absolute md:inset-auto md:z-auto md:bg-transparent md:p-2 md:rounded-lg md:transition-all md:duration-200 md:w-[150px] md:right-4 md:top-12`}
     >
-      <ul className="text-right">
-        <li>Edit</li>
-        <li>Delete</li>
-      </ul>
+      <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-lg w-full max-w-xs">
+        <ul className="grid gap-2">
+          <li
+            className="flex space-x-2 hover:cursor-pointer hover:text-orange-500"
+            onClick={() => {
+              onEdit()
+              onClose()
+            }}
+          >
+            <MdModeEdit className="self-center" /> <p>Edit</p>
+          </li>
+          <li
+            className="flex space-x-2 hover:cursor-pointer hover:text-red-500"
+            onClick={() => {
+              onDelete()
+              onClose()
+            }}
+          >
+            <MdDelete className="self-center" /> <p>Delete</p>
+          </li>
+          <li
+            className="flex space-x-2 hover:cursor-pointer hover:text-blue-500 md:hidden"
+            onClick={() => {
+              onClose()
+            }}
+          >
+            <IoClose className="self-center" /> <p>Close</p>
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }
@@ -62,7 +99,12 @@ export default function TaskCard({
           <BsThreeDotsVertical className="p-2 text-3xl hover:text-blue-500" />
         )}
       </div>
-      <ToggleOptionsMenu isOpen={optionsMenu} />
+      <ToggleOptionsMenu
+        isOpen={optionsMenu}
+        onEdit={() => onEdit(task)}
+        onDelete={() => onDelete(task.uuid as string)}
+        onClose={() => setOptionsMneu(false)}
+      />
       <h1 className="text-xl font-semibold pb-2">{task.title}</h1>
       <p>{task.description}</p>
       <div className="grid md:grid-cols-2 py-4 gap-4">
@@ -74,18 +116,6 @@ export default function TaskCard({
           {dictionary.task.priority.name}:{' '}
           {dictionary.task.priority.id[task.priority as number]}
         </p>
-      </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <Button color="Orange" Icon={MdModeEdit} onClick={() => onEdit(task)}>
-          {dictionary.button.editTask}
-        </Button>
-        <Button
-          color="Red"
-          Icon={MdDelete}
-          onClick={() => onDelete(task.uuid as string)}
-        >
-          {dictionary.button.deleteTask}
-        </Button>
       </div>
     </div>
   )
