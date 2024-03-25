@@ -106,14 +106,14 @@ export default function TaskCard({
         onClose={() => setOptionsMneu(false)}
       />
       <h1 className="text-xl font-semibold pb-2">{task.title}</h1>
-      <p>{task.description}</p>
-      <div className="grid md:grid-cols-2 py-4 gap-4">
-        <p className="text-center p-2 rounded-xl bg-red-500">
-          {dictionary.task.status.name}:{' '}
+      <p className="mb-2">{task.description}</p>
+      <div className="grid gap-y-2">
+        <p className="p-1 rounded-md w-[75px] text-sm bg-blue-500">
+          {/* {dictionary.task.status.name}:{' '} */}
           {dictionary.task.status.id[task.status as number]}
         </p>
-        <p className="text-center p-2 rounded-xl bg-green-500">
-          {dictionary.task.priority.name}:{' '}
+        <p className="p-1 rounded-md w-[75px] text-sm bg-purple-500">
+          {/* {dictionary.task.priority.name}:{' '} */}
           {dictionary.task.priority.id[task.priority as number]}
         </p>
       </div>

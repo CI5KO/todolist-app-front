@@ -50,7 +50,7 @@ export default function EditTask({
       style={{ transform: openState ? 'translateX(0)' : 'translateX(100%)' }}
     >
       <IoMdClose
-        className="absolute top-4 left-4 cursor-pointer text-2xl hover:rotate-90 transition-all duration-100 ease-in-out"
+        className="absolute top-4 md:top-20 left-4 cursor-pointer text-2xl hover:rotate-90 transition-all duration-100 ease-in-out"
         onClick={onClose}
       />
       <h1>Edit Task</h1>
