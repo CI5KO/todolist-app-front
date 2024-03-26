@@ -11,13 +11,14 @@ import {
   EditTask,
   NavBar,
 } from '@/utils/components'
+
 import Skeleton from '@/utils/components/Molecules/TaskCard/Skeleton'
-import ThemeSwitcher from '@/utils/components/Molecules/ThemeSwitcher'
 
 import TaskView from '@/utils/services/task'
-import type { Task, TaskRegister } from '@/utils/services/task/types'
 
+import type { Task, TaskRegister } from '@/utils/services/task/types'
 import { type UserLogged } from '@/utils/services/user/types'
+import { type AvailableLang } from '@/utils/lang'
 
 import { MdAdd, MdLibraryAdd } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
@@ -35,7 +36,7 @@ export default function ClientPage({
   user,
   tasksData,
 }: {
-  params: { lang: string }
+  params: { lang: AvailableLang }
   dictionary: any
   user: UserLogged
   tasksData: Task[]
@@ -103,7 +104,7 @@ export default function ClientPage({
           setTask(taskStateDefault)
         }}
       />
-      <NavBar />
+      <NavBar lang={lang} dictionary={dictionary} />
       <main className="grid md:pt-20">
         <Modal
           isOpen={modal}
@@ -171,9 +172,6 @@ export default function ClientPage({
             </Button>
           </div>
         </Modal>
-        <div className="justify-self-center">
-          <ThemeSwitcher />
-        </div>
         <div className="grid gap-4 py-4">
           <Suspense
             fallback={

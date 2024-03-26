@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${montserrat.className} bg-[#FAFAFA] dark:bg-[#232323]`}
+        className={`${montserrat.className} bg-[#EAEAEA] dark:bg-[#232323]`}
       >
         <NextThemeProvider>{children}</NextThemeProvider>
       </body>

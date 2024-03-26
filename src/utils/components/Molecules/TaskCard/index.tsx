@@ -17,17 +17,21 @@ interface TaskCardProps {
   onEdit: (task: Task) => void
 }
 
-function ToggleOptionsMenu({
-  isOpen,
-  onEdit,
-  onDelete,
-  onClose,
-}: {
+interface OptionsMenuProps {
   isOpen: boolean
+  taskTitle: string | undefined
   onEdit: () => void
   onDelete: () => void
   onClose: () => void
-}): JSX.Element {
+}
+
+function ToggleOptionsMenu({
+  isOpen,
+  taskTitle,
+  onEdit,
+  onDelete,
+  onClose,
+}: OptionsMenuProps): JSX.Element {
   return (
     <div
       className={`${
@@ -36,7 +40,10 @@ function ToggleOptionsMenu({
         isOpen ? '' : 'hidden'
       } md:absolute md:inset-auto md:z-auto md:bg-transparent md:p-2 md:rounded-lg md:transition-all md:duration-200 md:w-[150px] md:right-4 md:top-12`}
     >
-      <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-lg w-full max-w-xs">
+      <section className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-lg w-full max-w-xs">
+        <h2 className="text-center text-xl font-semibold pb-4 md:hidden">
+          {taskTitle}
+        </h2>
         <ul className="grid gap-2">
           <li
             className="flex space-x-2 hover:cursor-pointer hover:text-orange-500"
@@ -65,7 +72,7 @@ function ToggleOptionsMenu({
             <IoClose className="self-center" /> <p>Close</p>
           </li>
         </ul>
-      </div>
+      </section>
     </div>
   )
 }
@@ -101,21 +108,30 @@ export default function TaskCard({
       </div>
       <ToggleOptionsMenu
         isOpen={optionsMenu}
+        taskTitle={task.title}
         onEdit={() => onEdit(task)}
         onDelete={() => onDelete(task.uuid as string)}
         onClose={() => setOptionsMneu(false)}
       />
       <h1 className="text-xl font-semibold pb-2">{task.title}</h1>
       <p className="mb-2">{task.description}</p>
-      <div className="grid gap-y-2">
-        <p className="p-1 rounded-md w-[75px] text-sm bg-blue-500">
-          {/* {dictionary.task.status.name}:{' '} */}
-          {dictionary.task.status.id[task.status as number]}
-        </p>
-        <p className="p-1 rounded-md w-[75px] text-sm bg-purple-500">
-          {/* {dictionary.task.priority.name}:{' '} */}
-          {dictionary.task.priority.id[task.priority as number]}
-        </p>
+      <div className="grid gap-y-2 w-fit">
+        <div className="group flex flex-row">
+          <p className="p-1 rounded-md w-[75px] text-sm bg-blue-500">
+            {dictionary.task.status.id[task.status as number]}
+          </p>
+          <p className="ml-2 p-1 rounded-md w-[75px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+            {dictionary.task.status.name}
+          </p>
+        </div>
+        <div className="group flex flex-row">
+          <p className="p-1 rounded-md w-[75px] text-sm bg-purple-500">
+            {dictionary.task.priority.id[task.priority as number]}
+          </p>
+          <p className="ml-2 p-1 rounded-md w-[75px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+            {dictionary.task.priority.name}
+          </p>
+        </div>
       </div>
     </div>
   )

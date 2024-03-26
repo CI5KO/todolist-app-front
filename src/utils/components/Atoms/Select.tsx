@@ -24,7 +24,7 @@ export default function Select({
 }: SelectProps) {
   return (
     <select
-      className="border-2 border-blue-500 w-full rounded-lg px-4 py-2 shadow-md hover:scale-105 transition duration-75 bg-transparent"
+      className="border-2 border-blue-500 w-full rounded-lg px-4 py-2 shadow-md transition duration-75 bg-transparent"
       onChange={onChange}
       value={primary?.value}
     >
