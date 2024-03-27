@@ -133,26 +133,22 @@ export default function ClientPage({
             }
           />
           <Select
-            displayOption={dictionary.task.status.name}
+            label={dictionary.task.status.name}
             options={[
               { label: dictionary.task.status.id[0], value: 0 },
               { label: dictionary.task.status.id[1], value: 1 },
               { label: dictionary.task.status.id[2], value: 2 },
             ]}
-            onChange={(event) =>
-              setTask({ ...task, status: event.target.value })
-            }
+            onChange={(value) => setTask({ ...task, status: Number(value) })}
           />
           <Select
-            displayOption={dictionary.task.priority.name}
+            label={dictionary.task.priority.name}
             options={[
               { label: dictionary.task.priority.id[0], value: 0 },
               { label: dictionary.task.priority.id[1], value: 1 },
               { label: dictionary.task.priority.id[2], value: 2 },
             ]}
-            onChange={(event) =>
-              setTask({ ...task, priority: event.target.value })
-            }
+            onChange={(value) => setTask({ ...task, priority: Number(value) })}
           />
         </div>
         <div className="grid grid-cols-2 gap-2 pt-2">
@@ -172,28 +168,79 @@ export default function ClientPage({
         </div>
       </Modal>
       <main className="grid">
-        <div className="grid gap-4 py-4">
-          <Suspense
-            fallback={
-              <div className="grid gap-4 py-4">
-                <Skeleton />
-                <Skeleton />
-              </div>
-            }
-          >
-            {tasks.map((task, index) => (
-              <TaskCard
-                key={index}
-                task={task}
-                dictionary={dictionary}
-                onDelete={onDelete}
-                onEdit={(task) => {
-                  setAside(!aside)
-                  setTask(task)
-                }}
-              />
-            ))}
-          </Suspense>
+        <div className="grid gap-2 grid-cols-3 py-4">
+          <section>
+            <h1 className="text-center text-lg bg-red-500 rounded-t-lg font-semibold mb-2">
+              {dictionary.task.status.id[0]}
+            </h1>
+            <div className="grid gap-2">
+              <Suspense fallback={<Skeleton />}>
+                {tasks.map(
+                  (task, index) =>
+                    task.status === 0 && (
+                      <TaskCard
+                        key={index}
+                        task={task}
+                        dictionary={dictionary}
+                        onDelete={onDelete}
+                        onEdit={(task) => {
+                          setAside(!aside)
+                          setTask(task)
+                        }}
+                      />
+                    )
+                )}
+              </Suspense>
+            </div>
+          </section>
+          <section>
+            <h1 className="text-center text-lg bg-orange-500 rounded-t-lg font-semibold mb-2">
+              {dictionary.task.status.id[1]}
+            </h1>
+            <div className="grid gap-2">
+              <Suspense fallback={<Skeleton />}>
+                {tasks.map(
+                  (task, index) =>
+                    task.status === 1 && (
+                      <TaskCard
+                        key={index}
+                        task={task}
+                        dictionary={dictionary}
+                        onDelete={onDelete}
+                        onEdit={(task) => {
+                          setAside(!aside)
+                          setTask(task)
+                        }}
+                      />
+                    )
+                )}
+              </Suspense>
+            </div>
+          </section>
+          <section>
+            <h1 className="text-center text-lg bg-green-500 rounded-t-lg font-semibold mb-2">
+              {dictionary.task.status.id[2]}
+            </h1>
+            <div className="grid gap-2">
+              <Suspense fallback={<Skeleton />}>
+                {tasks.map(
+                  (task, index) =>
+                    task.status === 2 && (
+                      <TaskCard
+                        key={index}
+                        task={task}
+                        dictionary={dictionary}
+                        onDelete={onDelete}
+                        onEdit={(task) => {
+                          setAside(!aside)
+                          setTask(task)
+                        }}
+                      />
+                    )
+                )}
+              </Suspense>
+            </div>
+          </section>
         </div>
         <button
           className="bg-green-500 rounded-xl p-4 w-fit absolute bottom-24 right-5 md:bottom-20 md:right-20"

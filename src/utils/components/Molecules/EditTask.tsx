@@ -72,8 +72,8 @@ export default function EditTask({
           }
         />
         <Select
-          displayOption={dictionary.task.status.name}
-          primary={{
+          label={dictionary.task.status.name}
+          selected={{
             label: dictionary.task.status.id[editTask?.status as number],
             value: editTask?.status as number,
           }}
@@ -83,12 +83,12 @@ export default function EditTask({
             { label: dictionary.task.status.id[2], value: 2 },
           ]}
           onChange={(event) =>
-            setEditTask({ ...editTask, status: event.target.value })
+            setEditTask({ ...editTask, status: Number(event) })
           }
         />
         <Select
-          displayOption={dictionary.task.priority.name}
-          primary={{
+          label={dictionary.task.priority.name}
+          selected={{
             label: dictionary.task.priority.id[editTask?.priority as number],
             value: editTask?.priority as number,
           }}
@@ -98,10 +98,11 @@ export default function EditTask({
             { label: dictionary.task.priority.id[2], value: 2 },
           ]}
           onChange={(event) =>
-            setEditTask({ ...editTask, priority: Number(event.target.value) })
+            setEditTask({ ...editTask, priority: Number(event) })
           }
         />
         <Button
+          color="Green"
           onClick={() => {
             onSave(editTask as Task)
             onClose()

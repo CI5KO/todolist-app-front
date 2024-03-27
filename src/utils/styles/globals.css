@@ -4,6 +4,6 @@
 
 @layer components {
   main {
-    @apply container mx-auto max-w-[700px] xl:max-w-[50vw] py-8 px-4 md:pt-20;
+    @apply container mx-auto max-w-[900px] xl:max-w-[50vw] py-8 px-4 md:pt-20;
   }
 }

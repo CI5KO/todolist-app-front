@@ -114,21 +114,21 @@ export default function TaskCard({
         onClose={() => setOptionsMneu(false)}
       />
       <h1 className="text-xl font-semibold pb-2">{task.title}</h1>
-      <p className="mb-2">{task.description}</p>
+      <p className="mb-2 line-clamp-1">{task.description}</p>
       <div className="grid gap-y-2 w-fit">
         <div className="group flex flex-row">
-          <p className="p-1 rounded-md w-[75px] text-sm bg-blue-500">
+          <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-blue-500">
             {dictionary.task.status.id[task.status as number]}
           </p>
-          <p className="ml-2 p-1 rounded-md w-[75px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+          <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
             {dictionary.task.status.name}
           </p>
         </div>
         <div className="group flex flex-row">
-          <p className="p-1 rounded-md w-[75px] text-sm bg-purple-500">
+          <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-purple-500">
             {dictionary.task.priority.id[task.priority as number]}
           </p>
-          <p className="ml-2 p-1 rounded-md w-[75px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+          <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
             {dictionary.task.priority.name}
           </p>
         </div>
