@@ -1,6 +1,6 @@
 'use client'
 
-import { NavBar } from '@/utils/components'
+import { NavBar, ThemeSwitcher, LanguageSwitcher } from '@/utils/components'
 
 import { type UserLogged } from '@/utils/services/user/types'
 import { type AvailableLang } from '@/utils/lang'
@@ -17,7 +17,10 @@ export default function ClientPage({
   return (
     <>
       <NavBar lang={lang} dictionary={dictionary} />
-      <main className="grid md:pt-20"></main>
+      <main className="grid md:pt-20">
+        <ThemeSwitcher />
+        <LanguageSwitcher />
+      </main>
     </>
   )
 }

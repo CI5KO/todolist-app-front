@@ -17,7 +17,7 @@ export default function Switch({
   const toggleSwitch = () => onChange(!checked)
 
   return (
-    <label className="flex items-center cursor-pointer">
+    <label className="flex items-center cursor-pointer w-fit">
       <input
         type="checkbox"
         className="hidden"

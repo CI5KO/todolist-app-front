@@ -105,73 +105,73 @@ export default function ClientPage({
         }}
       />
       <NavBar lang={lang} dictionary={dictionary} />
-      <main className="grid md:pt-20">
-        <Modal
-          isOpen={modal}
-          onClose={() => {
-            setModal(false)
-            setTask(taskStateDefault)
-          }}
-        >
-          <h1 className="text-center text-2xl pb-4 font-semibold">
-            {dictionary.button.addTask}
-          </h1>
-          <div className="grid gap-2">
-            <Input
-              type="text"
-              title="Title"
-              value={task.title}
-              onChange={(event) =>
-                setTask({ ...task, title: event.target.value })
-              }
-            />
-            <Input
-              type="text"
-              title="Description"
-              value={task.description}
-              onChange={(event) =>
-                setTask({ ...task, description: event.target.value })
-              }
-            />
-            <Select
-              displayOption={dictionary.task.status.name}
-              options={[
-                { label: dictionary.task.status.id[0], value: 0 },
-                { label: dictionary.task.status.id[1], value: 1 },
-                { label: dictionary.task.status.id[2], value: 2 },
-              ]}
-              onChange={(event) =>
-                setTask({ ...task, status: event.target.value })
-              }
-            />
-            <Select
-              displayOption={dictionary.task.priority.name}
-              options={[
-                { label: dictionary.task.priority.id[0], value: 0 },
-                { label: dictionary.task.priority.id[1], value: 1 },
-                { label: dictionary.task.priority.id[2], value: 2 },
-              ]}
-              onChange={(event) =>
-                setTask({ ...task, priority: event.target.value })
-              }
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-2 pt-2">
-            <Button
-              Icon={IoMdClose}
-              color="Red"
-              onClick={() => {
-                setModal(false)
-                setTask(taskStateDefault)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button Icon={MdAdd} color="Green" onClick={() => onCreate()}>
-              Add
-            </Button>
-          </div>
-        </Modal>
+      <Modal
+        isOpen={modal}
+        onClose={() => {
+          setModal(false)
+          setTask(taskStateDefault)
+        }}
+      >
+        <h1 className="text-center text-2xl pb-4 font-semibold">
+          {dictionary.button.addTask}
+        </h1>
+        <div className="grid gap-2">
+          <Input
+            type="text"
+            title="Title"
+            value={task.title}
+            onChange={(event) =>
+              setTask({ ...task, title: event.target.value })
+            }
+          />
+          <Input
+            type="text"
+            title="Description"
+            value={task.description}
+            onChange={(event) =>
+              setTask({ ...task, description: event.target.value })
+            }
+          />
+          <Select
+            displayOption={dictionary.task.status.name}
+            options={[
+              { label: dictionary.task.status.id[0], value: 0 },
+              { label: dictionary.task.status.id[1], value: 1 },
+              { label: dictionary.task.status.id[2], value: 2 },
+            ]}
+            onChange={(event) =>
+              setTask({ ...task, status: event.target.value })
+            }
+          />
+          <Select
+            displayOption={dictionary.task.priority.name}
+            options={[
+              { label: dictionary.task.priority.id[0], value: 0 },
+              { label: dictionary.task.priority.id[1], value: 1 },
+              { label: dictionary.task.priority.id[2], value: 2 },
+            ]}
+            onChange={(event) =>
+              setTask({ ...task, priority: event.target.value })
+            }
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-2 pt-2">
+          <Button
+            Icon={IoMdClose}
+            color="Red"
+            onClick={() => {
+              setModal(false)
+              setTask(taskStateDefault)
+            }}
+          >
+            Cancel
+          </Button>
+          <Button Icon={MdAdd} color="Green" onClick={() => onCreate()}>
+            Add
+          </Button>
+        </div>
+      </Modal>
+      <main className="grid">
         <div className="grid gap-4 py-4">
           <Suspense
             fallback={
