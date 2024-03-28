@@ -1,6 +1,7 @@
 // Atoms
 export { default as Anchor } from './Atoms/Anchor'
 export { default as Button } from './Atoms/Button'
+export { default as Divider } from './Atoms/Divider'
 export { default as Input } from './Atoms/Input'
 export { default as Modal } from './Atoms/Modal'
 export { default as Select } from './Atoms/Select'
