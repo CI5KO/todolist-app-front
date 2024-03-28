@@ -15,6 +15,11 @@ interface EditTaskProps {
   dictionary: any
 }
 
+const setOverflow = (text: string): void => {
+  if (document === undefined) return
+  document.body.style.overflow = text
+}
+
 export default function EditTask({
   task,
   openState,
@@ -44,6 +49,35 @@ export default function EditTask({
     )
   }, [task])
 
+  const [mounted, setMounted] = useState<boolean>(false)
+
+  useEffect(() => setMounted(true), [])
+  if (mounted === false) return <></>
+
+  // fix for scroll issue
+  const { warn, error } = console
+
+  console.warn = (...args: any) => {
+    if (
+      /Skipping auto-scroll behavior due to `position: sticky` or `position: fixed` on element:/.test(
+        args[0]
+      )
+    )
+      return
+    warn(...args)
+  }
+  console.error = (...args: any) => {
+    if (/setOverflow/.test(args[0])) return
+    error(...args)
+  }
+
+  if (!openState) {
+    setOverflow('auto')
+    return <></>
+  }
+
+  setOverflow('hidden')
+
   return (
     <aside
       className="h-full w-full md:w-1/2 bg-[#FAFAFA] dark:bg-[#232323] p-4 rounded-lg shadow-lg fixed top-0 right-0 z-10 flex flex-col gap-4 justify-center items-center transition-all duration-300 ease-in-out"
@@ -53,7 +87,7 @@ export default function EditTask({
         className="absolute top-4 md:top-20 left-4 cursor-pointer text-2xl hover:rotate-90 transition-all duration-100 ease-in-out"
         onClick={onClose}
       />
-      <h1>Edit Task</h1>
+      <h2 className="text-center text-xl font-semibold">{editTask.title}</h2>
       <section className="grid gap-4 w-4/5">
         <Input
           type="text"

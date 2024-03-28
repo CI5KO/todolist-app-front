@@ -25,7 +25,6 @@ export default function LanguageSwitcher(): JSX.Element {
   ]
 
   const onChange = (e: any) => {
-    console.log(e)
     const path: string | undefined = pathname?.slice(3)
     const push: string = `/${e}${path === undefined ? '' : `/${path}`}`
     router.push(push)
@@ -33,6 +32,7 @@ export default function LanguageSwitcher(): JSX.Element {
 
   return (
     <Select
+      label="Languages"
       selected={languages.find((lang) => lang.value === currentLanguage)}
       options={languages}
       onChange={onChange}

@@ -168,7 +168,7 @@ export default function ClientPage({
         </div>
       </Modal>
       <main className="grid">
-        <div className="grid gap-2 grid-cols-3 py-4">
+        <div className="grid gap-2 md:grid-cols-3 py-4">
           <section>
             <h1 className="text-center text-lg bg-red-500 rounded-t-lg font-semibold mb-2">
               {dictionary.task.status.id[0]}
@@ -243,7 +243,7 @@ export default function ClientPage({
           </section>
         </div>
         <button
-          className="bg-green-500 rounded-xl p-4 w-fit absolute bottom-24 right-5 md:bottom-20 md:right-20"
+          className="bg-green-500 rounded-xl p-4 w-fit fixed bottom-24 right-5 md:bottom-20 md:right-20"
           onClick={() => setModal(true)}
         >
           <MdLibraryAdd className="text-3xl" />

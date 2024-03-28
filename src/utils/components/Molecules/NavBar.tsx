@@ -10,7 +10,7 @@ interface NavBarProps {
 
 export default function NavBar({ lang, dictionary }: NavBarProps): JSX.Element {
   return (
-    <div className="grid w-screen h-fit ease-in-out duration-200 z-50 absolute bottom-0 md:top-0">
+    <div className="grid w-screen h-fit ease-in-out duration-200 z-50 fixed bottom-0 md:top-0">
       <nav className="max-h-[75px] z-30 px-2 sm:px-4 pb-3 content-center top-0 shadow dark:shadow-slate-800 dark:bg-[#23222A] bg-[#e5e5e5]">
         <div className="max-h-[75px] container flex flex-wrap items-center justify-between mx-auto">
           <p className="hidden md:block pt-3">App Title</p>
