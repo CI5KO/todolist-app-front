@@ -4,9 +4,11 @@ import { useRef, useState } from 'react'
 
 import useOutsideClick from '../../../hooks/useOutsideClick'
 
+import { Button, Modal } from '../..'
+
 import { MdModeEdit, MdDelete } from 'react-icons/md'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { IoClose } from 'react-icons/io5'
+import { IoEye, IoClose } from 'react-icons/io5'
 
 import type { Task } from '@/utils/services/task/types'
 
@@ -20,6 +22,7 @@ interface TaskCardProps {
 interface OptionsMenuProps {
   isOpen: boolean
   taskTitle: string | undefined
+  onView: () => void
   onEdit: () => void
   onDelete: () => void
   onClose: () => void
@@ -28,6 +31,7 @@ interface OptionsMenuProps {
 function ToggleOptionsMenu({
   isOpen,
   taskTitle,
+  onView,
   onEdit,
   onDelete,
   onClose,
@@ -45,6 +49,15 @@ function ToggleOptionsMenu({
           {taskTitle}
         </h2>
         <ul className="grid gap-2">
+          <li
+            className="flex space-x-2 hover:cursor-pointer hover:text-green-500"
+            onClick={() => {
+              onView()
+              onClose()
+            }}
+          >
+            <IoEye className="self-center" /> <p>Open</p>
+          </li>
           <li
             className="flex space-x-2 hover:cursor-pointer hover:text-orange-500"
             onClick={() => {
@@ -84,6 +97,7 @@ export default function TaskCard({
   onEdit,
 }: TaskCardProps) {
   const [optionsMenu, setOptionsMneu] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
 
   const cardRef = useRef<HTMLDivElement>(null)
 
@@ -92,47 +106,98 @@ export default function TaskCard({
   })
 
   return (
-    <div
-      className="border-2 border-blue-500 rounded-lg p-4 relative"
-      ref={cardRef}
-    >
+    <>
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <div className="grid">
+          <h1 className="text-center text-lg font-semibold pb-4">
+            {task.title}
+          </h1>
+          <p className="text-justify pb-4">{task.description}</p>
+          <div className="grid gap-2">
+            <div className="group flex flex-row">
+              <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-blue-500">
+                {dictionary.task.status.id[task.status as number]}
+              </p>
+              <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+                {dictionary.task.status.name}
+              </p>
+            </div>
+            <div className="group flex flex-row">
+              <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-purple-500">
+                {dictionary.task.priority.id[task.priority as number]}
+              </p>
+              <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+                {dictionary.task.priority.name}
+              </p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4 pt-4">
+            <Button
+              color="Orange"
+              onClick={() => {
+                onEdit(task)
+                setModalOpen(false)
+              }}
+            >
+              Edit
+            </Button>
+            <Button
+              color="Red"
+              onClick={() => {
+                setModalOpen(false)
+                onDelete(task.uuid as string)
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      </Modal>
       <div
-        className={`absolute top-5 right-5 rounded-full hover:bg-slate-400/50 dark:hover:bg-slate-800/50 hover:cursor-pointer`}
-        onClick={() => setOptionsMneu(!optionsMenu)}
+        className="border-2 border-blue-500 rounded-lg p-4 relative"
+        ref={cardRef}
       >
-        {optionsMenu ? (
-          <IoClose className="p-2 text-3xl hover:text-red-500" />
-        ) : (
-          <BsThreeDotsVertical className="p-2 text-3xl hover:text-blue-500" />
-        )}
-      </div>
-      <ToggleOptionsMenu
-        isOpen={optionsMenu}
-        taskTitle={task.title}
-        onEdit={() => onEdit(task)}
-        onDelete={() => onDelete(task.uuid as string)}
-        onClose={() => setOptionsMneu(false)}
-      />
-      <h1 className="text-xl font-semibold pb-2">{task.title}</h1>
-      <p className="mb-2 line-clamp-1">{task.description}</p>
-      <div className="grid gap-y-2 w-fit">
-        <div className="group flex flex-row">
-          <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-blue-500">
-            {dictionary.task.status.id[task.status as number]}
-          </p>
-          <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
-            {dictionary.task.status.name}
-          </p>
+        <div
+          className={`absolute top-5 right-5 rounded-full hover:bg-slate-400/50 dark:hover:bg-slate-800/50 hover:cursor-pointer`}
+          onClick={() => setOptionsMneu(!optionsMenu)}
+        >
+          {optionsMenu ? (
+            <IoClose className="p-2 text-3xl hover:text-red-500" />
+          ) : (
+            <BsThreeDotsVertical className="p-2 text-3xl hover:text-blue-500" />
+          )}
         </div>
-        <div className="group flex flex-row">
-          <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-purple-500">
-            {dictionary.task.priority.id[task.priority as number]}
-          </p>
-          <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
-            {dictionary.task.priority.name}
-          </p>
+        <ToggleOptionsMenu
+          isOpen={optionsMenu}
+          taskTitle={task.title}
+          onView={() => setModalOpen(true)}
+          onEdit={() => onEdit(task)}
+          onDelete={() => onDelete(task.uuid as string)}
+          onClose={() => setOptionsMneu(false)}
+        />
+        <h1 className="text-xl font-semibold pb-2 line-clamp-1">
+          {task.title}
+        </h1>
+        <p className="mb-2 line-clamp-1">{task.description}</p>
+        <div className="grid gap-y-2 w-fit">
+          <div className="group flex flex-row">
+            <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-blue-500">
+              {dictionary.task.status.id[task.status as number]}
+            </p>
+            <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+              {dictionary.task.status.name}
+            </p>
+          </div>
+          <div className="group flex flex-row">
+            <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-purple-500">
+              {dictionary.task.priority.id[task.priority as number]}
+            </p>
+            <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
+              {dictionary.task.priority.name}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

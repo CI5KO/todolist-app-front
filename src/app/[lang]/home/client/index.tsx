@@ -171,7 +171,8 @@ export default function ClientPage({
         <div className="grid gap-2 md:grid-cols-3 py-4">
           <section>
             <h1 className="text-center text-lg bg-red-500 rounded-t-lg font-semibold mb-2">
-              {dictionary.task.status.id[0]}
+              {dictionary.task.status.id[0]} (
+              {tasks.filter((task) => task.status === 0).length})
             </h1>
             <div className="grid gap-2">
               <Suspense fallback={<Skeleton />}>
@@ -195,7 +196,8 @@ export default function ClientPage({
           </section>
           <section>
             <h1 className="text-center text-lg bg-orange-500 rounded-t-lg font-semibold mb-2">
-              {dictionary.task.status.id[1]}
+              {dictionary.task.status.id[1]} (
+              {tasks.filter((task) => task.status === 1).length})
             </h1>
             <div className="grid gap-2">
               <Suspense fallback={<Skeleton />}>
@@ -219,7 +221,8 @@ export default function ClientPage({
           </section>
           <section>
             <h1 className="text-center text-lg bg-green-500 rounded-t-lg font-semibold mb-2">
-              {dictionary.task.status.id[2]}
+              {dictionary.task.status.id[2]} (
+              {tasks.filter((task) => task.status === 2).length})
             </h1>
             <div className="grid gap-2">
               <Suspense fallback={<Skeleton />}>
