@@ -25,7 +25,7 @@ export default function Switch({
         onChange={toggleSwitch}
       />
       <div
-        className={`relative shadow-lg w-14 h-8 rounded-lg transition-all duration-300 border-2 border-blue-500 ${
+        className={`relative shadow-lg w-14 h-8 rounded-lg transition-all duration-300 border-2 border-primary ${
           checked ? '' : ''
         }`}
       >

@@ -48,7 +48,7 @@ export default function Select({
   return (
     <div className="relative" ref={selectRef}>
       <div
-        className="cursor-pointer border-2 border-blue-500 w-full rounded-lg px-4 py-2 shadow-md transition duration-75 bg-transparent flex flex-row justify-between"
+        className="cursor-pointer border-2 border-primary w-full rounded-lg px-4 py-2 shadow-md transition duration-75 bg-transparent flex flex-row justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedOption ? selectedOption.label : label}
@@ -60,13 +60,13 @@ export default function Select({
         />
       </div>
       {isOpen && (
-        <div className="absolute border-2 border-blue-500 w-full rounded-lg shadow-md bg-[#dedede] dark:bg-[#1a1a1a] z-10">
+        <div className="absolute border-2 border-primary w-full rounded-lg shadow-md bg-[#dedede] dark:bg-[#1a1a1a] z-10">
           {options.map(
             (option, index) =>
               option.value !== selectedOption?.value && (
                 <div
                   key={index}
-                  className="px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
+                  className="px-4 py-2 hover:bg-primary hover:text-white cursor-pointer"
                   onClick={() => handleOptionClick(option)}
                 >
                   {option.label}

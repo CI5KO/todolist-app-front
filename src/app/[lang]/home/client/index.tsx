@@ -170,7 +170,7 @@ export default function ClientPage({
       <main className="grid">
         <div className="grid gap-2 md:grid-cols-3 py-4">
           <section>
-            <h1 className="text-center text-lg bg-red-500 rounded-t-lg font-semibold mb-2">
+            <h1 className="text-center text-lg bg-danger rounded-t-lg font-semibold mb-2">
               {dictionary.task.status.id[0]} (
               {tasks.filter((task) => task.status === 0).length})
             </h1>
@@ -195,7 +195,7 @@ export default function ClientPage({
             </div>
           </section>
           <section>
-            <h1 className="text-center text-lg bg-orange-500 rounded-t-lg font-semibold mb-2">
+            <h1 className="text-center text-lg bg-warning rounded-t-lg font-semibold mb-2">
               {dictionary.task.status.id[1]} (
               {tasks.filter((task) => task.status === 1).length})
             </h1>
@@ -220,7 +220,7 @@ export default function ClientPage({
             </div>
           </section>
           <section>
-            <h1 className="text-center text-lg bg-green-500 rounded-t-lg font-semibold mb-2">
+            <h1 className="text-center text-lg bg-ok rounded-t-lg font-semibold mb-2">
               {dictionary.task.status.id[2]} (
               {tasks.filter((task) => task.status === 2).length})
             </h1>
@@ -246,7 +246,7 @@ export default function ClientPage({
           </section>
         </div>
         <button
-          className="bg-green-500 rounded-xl p-4 w-fit fixed bottom-24 right-5 md:bottom-20 md:right-20"
+          className="bg-ok rounded-xl p-4 w-fit fixed bottom-24 right-5 md:bottom-20 md:right-20"
           onClick={() => setModal(true)}
         >
           <MdLibraryAdd className="text-3xl" />

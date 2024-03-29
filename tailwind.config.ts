@@ -6,7 +6,15 @@ const config: Config = {
     './src/utils/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        ok: 'var(--color-ok)',
+        warning: 'var(--color-warning)',
+        danger: 'var(--color-danger)',
+      },
+    },
   },
   plugins: [],
   darkMode: 'class',

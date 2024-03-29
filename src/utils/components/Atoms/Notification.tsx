@@ -14,11 +14,11 @@ interface NotificationProps {
 const getColorByType = (type: string): string => {
   switch (type) {
     case 'ok':
-      return 'bg-green-500'
+      return 'bg-ok'
     case 'warning':
       return 'bg-yellow-500'
     case 'error':
-      return 'bg-red-500'
+      return 'bg-danger'
     default:
       return 'bg-black'
   }

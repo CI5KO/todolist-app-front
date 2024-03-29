@@ -24,13 +24,13 @@ export default function Anchor({ path, lang, Icon }: AnchorProps): JSX.Element {
     >
       <Icon
         className={clsx('text-3xl justify-self-center md:hidden', {
-          'text-blue-500': isActivePath,
+          'text-primary': isActivePath,
         })}
       />
       <h1
         className={clsx('text-lg first-letter:uppercase', {
-          'md:text-blue-500': isActivePath,
-          'hover:md:text-purple-500': !isActivePath,
+          'md:text-primary': isActivePath,
+          'hover:md:text-secondary': !isActivePath,
         })}
       >
         {path}

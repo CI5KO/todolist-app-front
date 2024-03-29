@@ -12,17 +12,17 @@ interface ButtonProps {
 const getBorderColor = (color: string | undefined) => {
   switch (color) {
     case 'Blue':
-      return 'border-blue-500'
+      return 'border-primary'
     case 'Green':
-      return 'border-green-500'
+      return 'border-ok'
     case 'Red':
-      return 'border-red-500'
+      return 'border-danger'
     case 'Orange':
-      return 'border-orange-500'
+      return 'border-warning'
     case 'Purple':
-      return 'border-purple-500'
+      return 'border-secondary'
     default:
-      return 'border-blue-500'
+      return 'border-primary'
   }
 }
 

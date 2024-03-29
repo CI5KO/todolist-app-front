@@ -50,7 +50,7 @@ function ToggleOptionsMenu({
         </h2>
         <ul className="grid gap-2">
           <li
-            className="flex space-x-2 hover:cursor-pointer hover:text-green-500"
+            className="flex space-x-2 hover:cursor-pointer hover:text-ok"
             onClick={() => {
               onView()
               onClose()
@@ -59,7 +59,7 @@ function ToggleOptionsMenu({
             <IoEye className="self-center" /> <p>Open</p>
           </li>
           <li
-            className="flex space-x-2 hover:cursor-pointer hover:text-orange-500"
+            className="flex space-x-2 hover:cursor-pointer hover:text-warning"
             onClick={() => {
               onEdit()
               onClose()
@@ -68,7 +68,7 @@ function ToggleOptionsMenu({
             <MdModeEdit className="self-center" /> <p>Edit</p>
           </li>
           <li
-            className="flex space-x-2 hover:cursor-pointer hover:text-red-500"
+            className="flex space-x-2 hover:cursor-pointer hover:text-danger"
             onClick={() => {
               onDelete()
               onClose()
@@ -77,7 +77,7 @@ function ToggleOptionsMenu({
             <MdDelete className="self-center" /> <p>Delete</p>
           </li>
           <li
-            className="flex space-x-2 hover:cursor-pointer hover:text-blue-500 md:hidden"
+            className="flex space-x-2 hover:cursor-pointer hover:text-primary md:hidden"
             onClick={() => {
               onClose()
             }}
@@ -115,7 +115,7 @@ export default function TaskCard({
           <p className="text-justify pb-4">{task.description}</p>
           <div className="grid gap-2">
             <div className="group flex flex-row">
-              <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-blue-500">
+              <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-primary">
                 {dictionary.task.status.id[task.status as number]}
               </p>
               <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
@@ -123,7 +123,7 @@ export default function TaskCard({
               </p>
             </div>
             <div className="group flex flex-row">
-              <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-purple-500">
+              <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-secondary">
                 {dictionary.task.priority.id[task.priority as number]}
               </p>
               <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
@@ -154,7 +154,7 @@ export default function TaskCard({
         </div>
       </Modal>
       <div
-        className="border-2 border-blue-500 rounded-lg p-4 relative"
+        className="border-2 border-primary rounded-lg p-4 relative"
         ref={cardRef}
       >
         <div
@@ -162,9 +162,9 @@ export default function TaskCard({
           onClick={() => setOptionsMneu(!optionsMenu)}
         >
           {optionsMenu ? (
-            <IoClose className="p-2 text-3xl hover:text-red-500" />
+            <IoClose className="p-2 text-3xl hover:text-danger" />
           ) : (
-            <BsThreeDotsVertical className="p-2 text-3xl hover:text-blue-500" />
+            <BsThreeDotsVertical className="p-2 text-3xl hover:text-primary" />
           )}
         </div>
         <ToggleOptionsMenu
@@ -181,7 +181,7 @@ export default function TaskCard({
         <p className="mb-2 line-clamp-1">{task.description}</p>
         <div className="grid gap-y-2 w-fit">
           <div className="group flex flex-row">
-            <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-blue-500">
+            <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-primary">
               {dictionary.task.status.id[task.status as number]}
             </p>
             <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">
@@ -189,7 +189,7 @@ export default function TaskCard({
             </p>
           </div>
           <div className="group flex flex-row">
-            <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-purple-500">
+            <p className="p-1 rounded-md min-w-fit max-w-[100px] text-sm bg-secondary">
               {dictionary.task.priority.id[task.priority as number]}
             </p>
             <p className="ml-2 p-1 rounded-md min-w-fit max-w-[100px] text-sm text-center hidden group-hover:block bg-white dark:bg-slate-800">

@@ -91,7 +91,7 @@ export default function Input({
         )}
       </div>
       {type === 'email' && inputColor === 'red' && (
-        <p className="text-red-500 text-sm mt-1">
+        <p className="text-danger text-sm mt-1">
           Please enter a valid email address
         </p>
       )}
