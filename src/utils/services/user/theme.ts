@@ -22,6 +22,11 @@ export function updateUserColor(newColors: ThemeProps): void {
   return
 }
 
+export function getUserColor(): ThemeProps {
+  const colors = localStorage.getItem('colors')
+  return colors ? JSON.parse(colors) : AvailableThemes[0]
+}
+
 export const AvailableThemes: ThemeProps[] = [
   {
     themeName: 'Default',
@@ -38,5 +43,21 @@ export const AvailableThemes: ThemeProps[] = [
     ok: '#ffafcc',
     warning: '#bde0fe',
     danger: '#a2d2ff',
+  },
+  {
+    themeName: 'Abstract',
+    primary: '#390099',
+    secondary: '#9e0059',
+    ok: '#ffbd00',
+    warning: '#ff5400',
+    danger: '#ff0054',
+  },
+  {
+    themeName: 'Colorfull',
+    primary: '#ffbe0b',
+    secondary: '#fb5607',
+    ok: '#3a86ff',
+    warning: '#8338ec',
+    danger: '#ff006e',
   },
 ]

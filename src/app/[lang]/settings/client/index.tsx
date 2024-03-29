@@ -1,17 +1,23 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import {
   Divider,
   Button,
+  ColorsCard,
   NavBar,
   ThemeSwitcher,
   LanguageSwitcher,
 } from '@/utils/components'
 
-import ThemeColors from '@/utils/components/Atoms/ThemeColors'
+import {
+  getUserColor,
+  updateUserColor,
+  AvailableThemes,
+} from '@/utils/services/user/theme'
 
-import { updateUserColor, AvailableThemes } from '@/utils/services/user/theme'
-
+import { type ThemeProps } from '@/utils/context/theme.context'
 import { type UserLogged } from '@/utils/services/user/types'
 import { type AvailableLang } from '@/utils/lang'
 
@@ -24,6 +30,15 @@ export default function ClientPage({
   dictionary: any
   user: UserLogged
 }) {
+  const [currentColors, setCurrentColors] = useState<ThemeProps>(
+    AvailableThemes[0]
+  )
+
+  useEffect(() => {
+    const colors = getUserColor()
+    setCurrentColors(colors)
+  }, [])
+
   return (
     <>
       <NavBar lang={lang} dictionary={dictionary} />
@@ -35,10 +50,15 @@ export default function ClientPage({
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           {AvailableThemes.map((theme) => (
-            <ThemeColors
+            <ColorsCard
+              id="colors"
               key={theme.themeName}
+              selected={currentColors.themeName === theme.themeName}
               theme={theme}
-              onSelect={updateUserColor}
+              onSelect={(newColors) => {
+                setCurrentColors(newColors)
+                updateUserColor(newColors)
+              }}
             />
           ))}
         </div>
