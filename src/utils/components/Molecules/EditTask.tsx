@@ -73,7 +73,6 @@ export default function EditTask({
 
   if (!openState) {
     setOverflow('auto')
-    return <></>
   }
 
   setOverflow('hidden')

@@ -7,12 +7,18 @@ import { type AvailableLang } from '@/utils/lang'
 import { type IconType } from 'react-icons'
 
 interface AnchorProps {
+  title: string
   path: string
   lang?: AvailableLang
   Icon: IconType
 }
 
-export default function Anchor({ path, lang, Icon }: AnchorProps): JSX.Element {
+export default function Anchor({
+  title,
+  path,
+  lang,
+  Icon,
+}: AnchorProps): JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
   const isActivePath: boolean = pathname.endsWith(path)
@@ -20,7 +26,7 @@ export default function Anchor({ path, lang, Icon }: AnchorProps): JSX.Element {
   return (
     <div
       className="grid hover:cursor-pointer"
-      onClick={() => router.push(`/${lang}/${path}`)}
+      onClick={() => router.push(`/${lang}${path}`)}
     >
       <Icon
         className={clsx('text-3xl justify-self-center md:hidden', {
@@ -33,7 +39,7 @@ export default function Anchor({ path, lang, Icon }: AnchorProps): JSX.Element {
           'hover:md:text-secondary': !isActivePath,
         })}
       >
-        {path}
+        {title}
       </h1>
     </div>
   )

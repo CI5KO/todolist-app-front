@@ -1,5 +1,10 @@
 {
   "test": "Hola a todos",
+  "link": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "settings": "Ajustes"
+  },
   "task": {
     "status": {
       "name": "Estado",

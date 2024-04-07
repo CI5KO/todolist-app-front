@@ -176,21 +176,25 @@ export default function ClientPage({
             </h1>
             <div className="grid gap-2">
               <Suspense fallback={<Skeleton />}>
-                {tasks.map(
-                  (task, index) =>
-                    task.status === 0 && (
-                      <TaskCard
-                        key={index}
-                        task={task}
-                        dictionary={dictionary}
-                        onDelete={onDelete}
-                        onEdit={(task) => {
-                          setAside(!aside)
-                          setTask(task)
-                        }}
-                      />
-                    )
-                )}
+                {tasks
+                  .sort(
+                    (a, b) => (b.priority as number) - (a.priority as number)
+                  )
+                  .map(
+                    (task, index) =>
+                      task.status === 0 && (
+                        <TaskCard
+                          key={index}
+                          task={task}
+                          dictionary={dictionary}
+                          onDelete={onDelete}
+                          onEdit={(task) => {
+                            setAside(!aside)
+                            setTask(task)
+                          }}
+                        />
+                      )
+                  )}
               </Suspense>
             </div>
           </section>

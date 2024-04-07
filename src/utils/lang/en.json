@@ -1,5 +1,10 @@
 {
   "test": "Hello everyone",
+  "link": {
+    "home": "Home",
+    "about": "About",
+    "settings": "Settings"
+  },
   "task": {
     "status": {
       "name": "Status",
