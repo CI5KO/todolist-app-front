@@ -149,71 +149,70 @@ export default function ClientPage({
         </div>
         <div className="bg-white/70 backdrop-blur p-8 rounded-b-lg shadow-lg w-3/4 md:w-1/2 xl:w-1/4">
           <h1 className="text-2xl text-center font-bold mb-4">ToDo App</h1>
-          {mode === 'login' ? (
-            <div className="grid gap-2">
-              <Input
-                title="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value.toLowerCase())}
+
+          <div className={`${mode === 'login' ? 'grid' : 'hidden'} gap-2`}>
+            <Input
+              title="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value.toLowerCase())}
+            />
+            <Input
+              title="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div style={{ display: 'none' }} aria-hidden="true">
+              <input
+                title="Confirm Email"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
               />
-              <Input
-                title="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div style={{ display: 'none' }} aria-hidden="true">
-                <input
-                  title="Confirm Email"
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
-                  tabIndex={-1}
-                />
-              </div>
-              <Button onClick={handleLogin} disabled={isLoginSubmit()}>
-                Login
-              </Button>
             </div>
-          ) : (
-            <div className="grid gap-2">
-              <Input
-                title="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+            <Button onClick={handleLogin} disabled={isLoginSubmit()}>
+              Login
+            </Button>
+          </div>
+
+          <div className={`${mode === 'register' ? 'grid' : 'hidden'} gap-2`}>
+            <Input
+              title="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Input
+              title="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value.toLowerCase())}
+            />
+            <Input
+              title="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Input
+              title="Confirm Password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <div style={{ display: 'none' }} aria-hidden="true">
+              <input
+                title="Confirm Email"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
               />
-              <Input
-                title="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value.toLowerCase())}
-              />
-              <Input
-                title="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Input
-                title="Confirm Password"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              <div style={{ display: 'none' }} aria-hidden="true">
-                <input
-                  title="Confirm Email"
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
-                  tabIndex={-1}
-                />
-              </div>
-              <Button onClick={handleRegister} disabled={isRegisterSubmit()}>
-                Register
-              </Button>
             </div>
-          )}
+            <Button onClick={handleRegister} disabled={isRegisterSubmit()}>
+              Register
+            </Button>
+          </div>
         </div>
       </section>
     </>

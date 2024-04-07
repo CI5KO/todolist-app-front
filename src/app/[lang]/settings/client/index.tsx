@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import {
@@ -15,7 +16,9 @@ import {
   getUserColor,
   updateUserColor,
   AvailableThemes,
+  resetUserColor,
 } from '@/utils/services/user/theme'
+import { removeJWT } from '@/utils/services/user/cookies'
 
 import { type ThemeProps } from '@/utils/context/theme.context'
 import { type UserLogged } from '@/utils/services/user/types'
@@ -30,6 +33,8 @@ export default function ClientPage({
   dictionary: any
   user: UserLogged
 }) {
+  const router = useRouter()
+
   const [currentColors, setCurrentColors] = useState<ThemeProps>(
     AvailableThemes[0]
   )
@@ -38,6 +43,12 @@ export default function ClientPage({
     const colors = getUserColor()
     setCurrentColors(colors)
   }, [])
+
+  const handleLogout = () => {
+    resetUserColor()
+    removeJWT()
+    router.push(`/${lang}`)
+  }
 
   return (
     <>
@@ -70,7 +81,9 @@ export default function ClientPage({
         <Divider text="User" />
         <div className="grid">
           <p className="pb-4">{user.name}</p>
-          <Button color="Red">Logout</Button>
+          <Button color="Red" onClick={handleLogout}>
+            Logout
+          </Button>
         </div>
       </main>
     </>

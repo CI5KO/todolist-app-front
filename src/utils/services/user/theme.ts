@@ -22,6 +22,10 @@ export function updateUserColor(newColors: ThemeProps): void {
   return
 }
 
+export function resetUserColor(): void {
+  updateUserColor(AvailableThemes[0])
+}
+
 export function getUserColor(): ThemeProps {
   const colors = localStorage.getItem('colors')
   return colors ? JSON.parse(colors) : AvailableThemes[0]

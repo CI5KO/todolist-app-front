@@ -35,6 +35,23 @@ export default function Notification({
   const [progress, setProgress] = useState<number>(0)
   const color: string = getColorByType(type)
 
+  // fix for scroll issue
+  const { warn, error } = console
+
+  console.warn = (...args: any) => {
+    if (
+      /Skipping auto-scroll behavior due to `position: sticky` or `position: fixed` on element:/.test(
+        args[0]
+      )
+    )
+      return
+    warn(...args)
+  }
+  console.error = (...args: any) => {
+    if (/setOverflow/.test(args[0])) return
+    error(...args)
+  }
+
   useEffect(() => {
     if (!activation) {
       setProgress(0)
@@ -53,6 +70,7 @@ export default function Notification({
     }, timeInSeconds * 10)
 
     return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activation])
 
   return (
