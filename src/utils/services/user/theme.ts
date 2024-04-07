@@ -44,9 +44,9 @@ export const AvailableThemes: ThemeProps[] = [
     themeName: 'Pinky',
     primary: '#cdb4db',
     secondary: '#ffc8dd',
-    ok: '#ffafcc',
-    warning: '#bde0fe',
-    danger: '#a2d2ff',
+    ok: '#bde0fe',
+    warning: '#a2d2ff',
+    danger: '#ffafcc',
   },
   {
     themeName: 'Abstract',
