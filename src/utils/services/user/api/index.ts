@@ -3,7 +3,6 @@
 import type {
   User,
   UserRegister,
-  UserLogged,
   UserLoginProps,
   LoginResponse,
 } from '../types'
@@ -17,7 +16,7 @@ class UserService {
     return data
   }
 
-  static async register(user: UserRegister): Promise<UserLogged> {
+  static async register(user: UserRegister): Promise<User> {
     const response: Response = await fetch(`${process.env.BACKEND_URL}/user/`, {
       method: 'POST',
       headers: {

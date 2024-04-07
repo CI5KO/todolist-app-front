@@ -2,20 +2,14 @@
 
 import UserService from './api'
 
-import type {
-  User,
-  UserRegister,
-  UserLogged,
-  UserLoginProps,
-  LoginResponse,
-} from './types'
+import type { User, UserLoginProps, LoginResponse, UserRegister } from './types'
 
 class UserView {
   static async getUserById(id: string): Promise<User> {
     return UserService.getUserById(id)
   }
 
-  static async register(user: UserRegister): Promise<UserLogged> {
+  static async register(user: UserRegister): Promise<User> {
     return UserService.register(user)
   }
 
