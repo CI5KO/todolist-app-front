@@ -92,6 +92,12 @@ export default function ClientPage({
     }
   }
 
+  const disabledAddTask = (): boolean =>
+    task.title === '' ||
+    task.description === '' ||
+    task.status === undefined ||
+    task.priority === undefined
+
   return (
     <>
       <EditTask
@@ -118,7 +124,7 @@ export default function ClientPage({
         <div className="grid gap-2">
           <Input
             type="text"
-            title="Title"
+            title={dictionary.home.title}
             value={task.title}
             onChange={(event) =>
               setTask({ ...task, title: event.target.value })
@@ -126,7 +132,7 @@ export default function ClientPage({
           />
           <Input
             type="text"
-            title="Description"
+            title={dictionary.home.description}
             value={task.description}
             onChange={(event) =>
               setTask({ ...task, description: event.target.value })
@@ -160,10 +166,15 @@ export default function ClientPage({
               setTask(taskStateDefault)
             }}
           >
-            Cancel
+            {dictionary.button.cancel}
           </Button>
-          <Button Icon={MdAdd} color="Green" onClick={() => onCreate()}>
-            Add
+          <Button
+            Icon={MdAdd}
+            color="Green"
+            disabled={disabledAddTask()}
+            onClick={() => onCreate()}
+          >
+            {dictionary.button.addTask}
           </Button>
         </div>
       </Modal>
@@ -205,21 +216,25 @@ export default function ClientPage({
             </h1>
             <div className="grid gap-2">
               <Suspense fallback={<Skeleton />}>
-                {tasks.map(
-                  (task, index) =>
-                    task.status === 1 && (
-                      <TaskCard
-                        key={index}
-                        task={task}
-                        dictionary={dictionary}
-                        onDelete={onDelete}
-                        onEdit={(task) => {
-                          setAside(!aside)
-                          setTask(task)
-                        }}
-                      />
-                    )
-                )}
+                {tasks
+                  .sort(
+                    (a, b) => (b.priority as number) - (a.priority as number)
+                  )
+                  .map(
+                    (task, index) =>
+                      task.status === 1 && (
+                        <TaskCard
+                          key={index}
+                          task={task}
+                          dictionary={dictionary}
+                          onDelete={onDelete}
+                          onEdit={(task) => {
+                            setAside(!aside)
+                            setTask(task)
+                          }}
+                        />
+                      )
+                  )}
               </Suspense>
             </div>
           </section>
@@ -230,21 +245,25 @@ export default function ClientPage({
             </h1>
             <div className="grid gap-2">
               <Suspense fallback={<Skeleton />}>
-                {tasks.map(
-                  (task, index) =>
-                    task.status === 2 && (
-                      <TaskCard
-                        key={index}
-                        task={task}
-                        dictionary={dictionary}
-                        onDelete={onDelete}
-                        onEdit={(task) => {
-                          setAside(!aside)
-                          setTask(task)
-                        }}
-                      />
-                    )
-                )}
+                {tasks
+                  .sort(
+                    (a, b) => (b.priority as number) - (a.priority as number)
+                  )
+                  .map(
+                    (task, index) =>
+                      task.status === 2 && (
+                        <TaskCard
+                          key={index}
+                          task={task}
+                          dictionary={dictionary}
+                          onDelete={onDelete}
+                          onEdit={(task) => {
+                            setAside(!aside)
+                            setTask(task)
+                          }}
+                        />
+                      )
+                  )}
               </Suspense>
             </div>
           </section>

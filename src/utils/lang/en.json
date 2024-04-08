@@ -12,10 +12,47 @@
     },
     "priority": { "name": "Priority", "id": ["Low", "Medium", "High", "N/A"] }
   },
+  "login": {
+    "login": "Log In",
+    "register": "Register",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "notification": [
+      {
+        "title": "Session Error",
+        "message": "The username or password is incorrect"
+      },
+      {
+        "title": "Registration Error",
+        "message": "An error has occurred"
+      },
+      {
+        "title": "Successfully Registered",
+        "message": "You can now log in"
+      }
+    ]
+  },
+  "home": {
+    "title": "Title",
+    "description": "Description"
+  },
+  "settings": {
+    "theme": "Theme",
+    "language": "Language",
+    "user": "User",
+    "logout": "Log Out"
+  },
   "button": {
     "addTask": "Add Task",
     "deleteTask": "Delete Task",
     "editTask": "Edit Task",
-    "saveTask": "Save Task"
+    "saveTask": "Save Task",
+    "open": "Open",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "close": "Close"
   }
 }

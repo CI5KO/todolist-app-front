@@ -12,10 +12,47 @@
     },
     "priority": { "name": "Prioridad", "id": ["Bajo", "Medio", "Alta", "N/A"] }
   },
+  "login": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "username": "Nombre de Usuario",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "passwordConfirm": "Confirmar Contraseña",
+    "notification": [
+      {
+        "title": "Error de sesión",
+        "message": "El usuario o la contraseña son incorrectos"
+      },
+      {
+        "title": "Error de registro",
+        "message": "Ha ocurrido un error"
+      },
+      {
+        "title": "Registrado Correctamente",
+        "message": "Ya puedes iniciar sesión"
+      }
+    ]
+  },
+  "home": {
+    "title": "Titulo",
+    "description": "Descripción"
+  },
+  "settings": {
+    "theme": "Tema",
+    "language": "Idioma",
+    "user": "Usuario",
+    "logout": "Cerrar Sesión"
+  },
   "button": {
     "addTask": "Agregar Tarea",
     "deleteTask": "Eliminar Tarea",
     "editTask": "Editar Tarea",
-    "saveTask": "Guardar Tarea"
+    "saveTask": "Guardar Tarea",
+    "open": "Abrir",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "close": "Cerrar"
   }
 }

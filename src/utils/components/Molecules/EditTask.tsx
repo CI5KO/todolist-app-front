@@ -75,6 +75,13 @@ export default function EditTask({
     setOverflow('auto')
   }
 
+  const disabledSaveChanges = (): boolean =>
+    editTask.title === '' ||
+    editTask.description === '' ||
+    editTask.status === undefined ||
+    editTask.priority === undefined ||
+    JSON.stringify(editTask) === JSON.stringify(task)
+
   setOverflow('hidden')
 
   return (
@@ -89,16 +96,16 @@ export default function EditTask({
       <h2 className="text-center text-xl font-semibold">{editTask.title}</h2>
       <section className="grid gap-4 w-4/5">
         <Input
+          title={dictionary.home.title}
           type="text"
-          title="Title"
           value={editTask?.title}
           onChange={(event) =>
             setEditTask({ ...editTask, title: event.target.value })
           }
         />
         <Input
+          title={dictionary.home.description}
           type="text"
-          title="Description"
           value={editTask?.description}
           onChange={(event) =>
             setEditTask({ ...editTask, description: event.target.value })
@@ -140,8 +147,9 @@ export default function EditTask({
             onSave(editTask as Task)
             onClose()
           }}
+          disabled={disabledSaveChanges()}
         >
-          Save
+          {dictionary.button.saveTask}
         </Button>
       </section>
     </aside>

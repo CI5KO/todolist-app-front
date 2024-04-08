@@ -54,9 +54,9 @@ export default function ClientPage({
     <>
       <NavBar lang={lang} dictionary={dictionary} />
       <main className="grid md:pt-20">
-        <Divider text="Theme" />
+        <Divider text={dictionary.settings.theme} />
         <div className="flex flex-row justify-between pb-4">
-          <p className="self-center">Theme:</p>
+          <p className="self-center">{dictionary.settings.theme}:</p>
           <ThemeSwitcher />
         </div>
         <div className="grid md:grid-cols-2 gap-4">
@@ -73,16 +73,16 @@ export default function ClientPage({
             />
           ))}
         </div>
-        <Divider text="Language" />
+        <Divider text={dictionary.settings.language} />
         <div className="flex flex-row justify-between">
-          <p className="self-center">Language:</p>
+          <p className="self-center">{dictionary.settings.language}:</p>
           <LanguageSwitcher />
         </div>
-        <Divider text="User" />
+        <Divider text={dictionary.settings.user} />
         <div className="grid">
           <p className="pb-4">{user.name}</p>
           <Button color="Red" onClick={handleLogout}>
-            Logout
+            {dictionary.settings.logout}
           </Button>
         </div>
       </main>

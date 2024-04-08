@@ -22,6 +22,7 @@ interface TaskCardProps {
 interface OptionsMenuProps {
   isOpen: boolean
   taskTitle: string | undefined
+  dictionary: any
   onView: () => void
   onEdit: () => void
   onDelete: () => void
@@ -31,6 +32,7 @@ interface OptionsMenuProps {
 function ToggleOptionsMenu({
   isOpen,
   taskTitle,
+  dictionary,
   onView,
   onEdit,
   onDelete,
@@ -56,7 +58,8 @@ function ToggleOptionsMenu({
               onClose()
             }}
           >
-            <IoEye className="self-center" /> <p>Open</p>
+            <IoEye className="self-center" />
+            <p>{dictionary.button.open}</p>
           </li>
           <li
             className="flex space-x-2 hover:cursor-pointer hover:text-warning"
@@ -65,7 +68,8 @@ function ToggleOptionsMenu({
               onClose()
             }}
           >
-            <MdModeEdit className="self-center" /> <p>Edit</p>
+            <MdModeEdit className="self-center" />
+            <p>{dictionary.button.edit}</p>
           </li>
           <li
             className="flex space-x-2 hover:cursor-pointer hover:text-danger"
@@ -74,7 +78,8 @@ function ToggleOptionsMenu({
               onClose()
             }}
           >
-            <MdDelete className="self-center" /> <p>Delete</p>
+            <MdDelete className="self-center" />
+            <p>{dictionary.button.delete}</p>
           </li>
           <li
             className="flex space-x-2 hover:cursor-pointer hover:text-primary md:hidden"
@@ -82,7 +87,8 @@ function ToggleOptionsMenu({
               onClose()
             }}
           >
-            <IoClose className="self-center" /> <p>Close</p>
+            <IoClose className="self-center" />
+            <p>{dictionary.button.close}</p>
           </li>
         </ul>
       </section>
@@ -139,7 +145,7 @@ export default function TaskCard({
                 setModalOpen(false)
               }}
             >
-              Edit
+              {dictionary.button.editTask}
             </Button>
             <Button
               color="Red"
@@ -148,7 +154,7 @@ export default function TaskCard({
                 onDelete(task.uuid as string)
               }}
             >
-              Delete
+              {dictionary.button.deleteTask}
             </Button>
           </div>
         </div>
@@ -170,6 +176,7 @@ export default function TaskCard({
         <ToggleOptionsMenu
           isOpen={optionsMenu}
           taskTitle={task.title}
+          dictionary={dictionary}
           onView={() => setModalOpen(true)}
           onEdit={() => onEdit(task)}
           onDelete={() => onDelete(task.uuid as string)}

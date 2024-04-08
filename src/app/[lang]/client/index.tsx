@@ -61,9 +61,9 @@ export default function ClientPage({
     if (!response.jwt) {
       setNotification(true)
       setNotificationData({
-        title: 'Login Error',
+        title: dictionary.login.notification[0].title,
         type: 'error',
-        description: 'Something went wrong',
+        description: dictionary.login.notification[0].message,
       })
       return
     }
@@ -83,17 +83,17 @@ export default function ClientPage({
     if (!response.uuid) {
       setNotification(true)
       setNotificationData({
-        title: 'Register Error',
+        title: dictionary.login.notification[1].title,
         type: 'error',
-        description: 'Something went wrong',
+        description: dictionary.login.notification[1].message,
       })
       return
     }
     setNotification(true)
     setNotificationData({
-      title: 'Register Success',
+      title: dictionary.login.notification[2].title,
       type: 'ok',
-      description: 'You can now login',
+      description: dictionary.login.notification[2].message,
     })
   }
 
@@ -136,7 +136,7 @@ export default function ClientPage({
             } backdrop-blur rounded-tl-lg p-2`}
             onClick={() => setMode('login')}
           >
-            login
+            {dictionary.login.login}
           </p>
           <p
             className={`${
@@ -144,21 +144,20 @@ export default function ClientPage({
             } backdrop-blur rounded-tr-lg p-2`}
             onClick={() => setMode('register')}
           >
-            Register
+            {dictionary.login.register}
           </p>
         </div>
         <div className="bg-white/70 backdrop-blur p-8 rounded-b-lg shadow-lg w-3/4 md:w-1/2 xl:w-1/4">
           <h1 className="text-2xl text-center font-bold mb-4">ToDo App</h1>
-
           <div className={`${mode === 'login' ? 'grid' : 'hidden'} gap-2`}>
             <Input
-              title="Email"
+              title={dictionary.login.email}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value.toLowerCase())}
             />
             <Input
-              title="Password"
+              title={dictionary.login.password}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -172,31 +171,30 @@ export default function ClientPage({
               />
             </div>
             <Button onClick={handleLogin} disabled={isLoginSubmit()}>
-              Login
+              {dictionary.login.login}
             </Button>
           </div>
-
           <div className={`${mode === 'register' ? 'grid' : 'hidden'} gap-2`}>
             <Input
-              title="name"
+              title={dictionary.login.username}
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
-              title="Email"
+              title={dictionary.login.email}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value.toLowerCase())}
             />
             <Input
-              title="Password"
+              title={dictionary.login.password}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <Input
-              title="Confirm Password"
+              title={dictionary.login.passwordConfirm}
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -210,7 +208,7 @@ export default function ClientPage({
               />
             </div>
             <Button onClick={handleRegister} disabled={isRegisterSubmit()}>
-              Register
+              {dictionary.login.register}
             </Button>
           </div>
         </div>
