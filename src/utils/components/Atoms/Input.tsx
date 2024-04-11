@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { GrFormView, GrFormViewHide } from 'react-icons/gr'
 import { IoIosClose } from 'react-icons/io'
@@ -9,7 +9,6 @@ interface inputProps {
   title?: string
   type?: string
   step?: string
-  placeholder?: string
   disabled?: boolean
   value?: string | number
   onChange?: (e?: any) => void
@@ -31,22 +30,35 @@ export default function Input({
   onChange,
   onBlur,
   value,
-  placeholder,
 }: inputProps): JSX.Element {
-  const [inputType, setInputType] = useState<string>(type)
   const [inputColor, setInputColor] = useState<string>('blue')
+  const [inputType, setInputType] = useState<string>(type)
+  const [focus, setFocus] = useState<boolean>(false)
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <div>
+    <div className="relative" onClick={() => inputRef.current?.focus()}>
+      <label
+        className={`absolute ${
+          value || focus ? '-top-3 left-2' : 'top-2.5 left-3 cursor-text'
+        } bg-gradient-to-t from-white via-white dark:from-[#302F37] dark:via-[#302F37] via-50% to-50% transition-all duration-100 z-[5] font-semibold px-1 select-none`}
+      >
+        {title}
+      </label>
       <div className="flex items-center relative">
         <input
-          placeholder={placeholder || title}
-          className={`border-2 border-${inputColor}-500 w-full rounded-lg px-4 py-2 shadow-md transition duration-75 bg-transparent`}
+          className={`border-2 border-${inputColor}-500 w-full rounded-lg px-4 py-2 shadow-md transition duration-75`}
           type={inputType}
           min={1}
           step={step}
           disabled={disabled}
-          onBlur={onBlur}
+          ref={inputRef}
+          onBlur={(e) => {
+            onBlur && onBlur(e)
+            setFocus(false)
+          }}
+          onFocus={() => setFocus(true)}
           onChange={(event) => {
             if (type === 'email' && !validateEmailInput(event.target.value))
               setInputColor('red')
