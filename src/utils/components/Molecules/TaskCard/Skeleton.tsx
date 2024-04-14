@@ -1,3 +1,16 @@
+/**
+ * Author: CI5KO
+ * Creation Date: April 14, 2024
+ * Last Modification: April 14, 2024
+ *
+ * Contact: hector_oliva16k@hotmail.com
+ *
+ * This code is owned by CI5KO.
+ * You are welcome to contribute to the original repository.
+ *
+ * Any contributions to this repository are subject to the original terms stated herein.
+ */
+
 export default function Skeleton() {
   return (
     <div className="animate-pulse grid p-4">
@@ -13,5 +26,5 @@ export default function Skeleton() {
         <div className="rounded-xl bg-gray-300 h-10 w-full" />
       </div>
     </div>
-  );
+  )
 }

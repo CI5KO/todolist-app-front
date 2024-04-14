@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ToDo App Frontend
 
-## Getting Started
+This is the frontend application for a ToDo App. It provides a user interface for creating, updating and deleting tasks.
 
-First, run the development server:
+## Technologies
+
+- Next.js 14
+- Turbopack
+- Storybook 8
+- Typescript
+- Tailwind CSS
+
+## Project Structure
+
+The project is structured as follows:
+
+- `src`: Contains the source code for the application.
+  - `app`: Contains all the pages for the application.
+  - `utils`: Contains all the utilities for the application.
+    - `components`: Contains all the reusable components for the application, using the atomic architecture.
+      - `atoms`: Contains all the atomic components, such as buttons and inputs.
+      - `molecules`: Contains all the molecules components, which are composed of atoms.
+      - `organisms`: Contains all the organisms components, which are composed of molecules.
+    - `context`: Contains all the context providers for managing global state.
+    - `hooks`: Contains all the custom hooks used in the application.
+    - `lang`: Contains the language files for internationalization.
+    - `services`: Contains all the services used in the application, such as API calls and data manipulation.
+    - `styles`: Contains global styles and Tailwind CSS configuration files.
+  - `middleware.ts`: Middleware for fast authentication and authorization.
+- `public`: Contains static assets such as images and fonts.
+- `.next`: Contains the compiled code from the `src` directory. This is where you run your application from.
+- `package.json`: Contains project dependencies and scripts for running the application.
+- `tsconfig.json`: Configures the Typescript compiler.
+- `.env.local`: File for setting environment variables.
+
+## Setup and Installation
+
+1. Clone this repository.
+2. Install dependencies by running `npm install`.
+3. Create a `.env.local` file and set your environment variables.
+4. Run `npm run dev` to start the application in development mode powered by turbopack.
+5. Run `npm run build` to compile the Typescript code into the `.next` directory.
+6. Run `npm start` to start the application in production mode.
+
+## Docker Configuration
+
+This Dockerfile defines multiple stages for different environments: production, development, and documentation. Each stage is built from a Node.js base image.
+This configuration ensures that each environment is optimized for its specific needs, improving development efficiency and deployment performance.
+
+Base Image: Uses node:20.11.0.
+
+### Production
+
+Build
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker build --target production -t myapp-production .
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker run -p 3000:3000 myapp-production
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Development
 
-## Learn More
+Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker build --target development -t myapp-development .
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+docker run -p 3000:3000 -p 9230:9230 myapp-development
+```
 
-## Deploy on Vercel
+### Documentation (Storybook)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+docker build --target documentation -t myapp-docs .
+```
+
+Run
+
+```bash
+docker run -p 6006:6006 myapp-docs
+```
+
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork this repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit and push your changes to the new branch.
+4. Submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
+You can copy and modify the code as you wish.
