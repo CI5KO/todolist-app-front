@@ -3,7 +3,7 @@
 /**
  * Author: CI5KO
  * Creation Date: April 14, 2024
- * Last Modification: April 14, 2024
+ * Last Modification: April 23, 2024
  *
  * Contact: hector_oliva16k@hotmail.com
  *
@@ -13,6 +13,7 @@
  * Any contributions to this repository are subject to the original terms stated herein.
  */
 
+import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { useState, Suspense } from 'react'
 
@@ -53,7 +54,7 @@ export default function ClientPage({
   dictionary: any
   user: UserLogged
   tasksData: Task[]
-}) {
+}): JSX.Element {
   const taskStateDefault: TaskRegister = {
     title: '',
     description: '',
@@ -185,7 +186,7 @@ export default function ClientPage({
             Icon={MdAdd}
             color="Green"
             disabled={disabledAddTask()}
-            onClick={() => onCreate()}
+            onClick={onCreate}
           >
             {dictionary.button.addTask}
           </Button>
@@ -282,7 +283,10 @@ export default function ClientPage({
           </section>
         </div>
         <button
-          className="bg-ok rounded-xl p-4 w-fit fixed bottom-24 right-5 md:bottom-20 md:right-20"
+          className={clsx(
+            'bg-ok rounded-xl p-4 w-fit fixed bottom-24 right-5 md:bottom-20 md:right-20',
+            { 'animate-pulse': tasks.length === 0 }
+          )}
           onClick={() => setModal(true)}
         >
           <MdLibraryAdd className="text-3xl" />

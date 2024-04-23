@@ -55,7 +55,7 @@ export default function Input({
       <label
         className={`absolute ${
           value || focus ? '-top-3 left-2' : 'top-2.5 left-3 cursor-text'
-        } bg-gradient-to-t from-white via-white dark:from-[#302F37] dark:via-[#302F37] via-50% to-50% transition-all duration-100 z-[5] font-semibold px-1 select-none`}
+        } bg-gradient-to-t from-white via-white dark:from-black dark:via-black via-50% to-50% transition-all duration-100 z-[5] font-semibold px-1 select-none`}
       >
         {title}
       </label>

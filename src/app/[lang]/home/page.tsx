@@ -3,7 +3,7 @@
 /**
  * Author: CI5KO
  * Creation Date: April 14, 2024
- * Last Modification: April 22, 2024
+ * Last Modification: April 23, 2024
  *
  * Contact: hector_oliva16k@hotmail.com
  *
@@ -24,8 +24,8 @@ import { type Task } from '@/utils/services/task/types'
 import { type Metadata } from 'next'
 
 const title: { [key: string]: string } = {
-  en: 'Settings',
-  es: 'Ajustes',
+  en: 'Home',
+  es: 'Inicio',
 }
 
 export async function generateMetadata({

@@ -1,7 +1,7 @@
 /**
  * Author: CI5KO
  * Creation Date: April 14, 2024
- * Last Modification: April 14, 2024
+ * Last Modification: April 23, 2024
  *
  * Contact: hector_oliva16k@hotmail.com
  *
@@ -49,7 +49,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode
-}>) {
+}>): JSX.Element {
   return (
     <html lang="en">
       <body
