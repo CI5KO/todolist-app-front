@@ -3,7 +3,7 @@
 /**
  * Author: CI5KO
  * Creation Date: April 14, 2024
- * Last Modification: April 14, 2024
+ * Last Modification: April 22, 2024
  *
  * Contact: hector_oliva16k@hotmail.com
  *
@@ -22,7 +22,7 @@ import { saveJWT } from '@/utils/services/user/cookies'
 import { Button, Input, Notification } from '@/utils/components'
 import { validateEmailInput } from '@/utils/components/Atoms/Input'
 
-import BgImage from '../../../../public/img/bg-primary.jpg'
+import BgImage from '@/public/img/bg-primary.jpg'
 
 import type { User, LoginResponse } from '@/utils/services/user/types'
 
@@ -62,7 +62,8 @@ export default function ClientPage({
     description: '',
   })
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: any) => {
+    e && e.preventDefault()
     if (honeypot) {
       console.log(
         '%cBot Detected! \nAccess Denied',
@@ -84,7 +85,8 @@ export default function ClientPage({
     router.push(`/${lang}/home`)
   }
 
-  const handleRegister = async () => {
+  const handleRegister = async (e: any) => {
+    e && e.preventDefault()
     if (honeypot) {
       console.log(
         '%cBot Detected! \nAccess Denied',
@@ -145,7 +147,9 @@ export default function ClientPage({
         <div className="grid grid-cols-2 text-center w-3/4 md:w-1/2 xl:w-1/4 select-none">
           <p
             className={`${
-              mode === 'login' ? 'bg-white/70' : 'bg-white/50 cursor-pointer'
+              mode === 'login'
+                ? 'bg-[#EAEAEA] dark:bg-[#232323]'
+                : 'bg-[#EAEAEA]/70 dark:bg-[#232323]/70 cursor-pointer'
             } backdrop-blur rounded-tl-lg p-2`}
             onClick={() => setMode('login')}
           >
@@ -153,16 +157,21 @@ export default function ClientPage({
           </p>
           <p
             className={`${
-              mode === 'register' ? 'bg-white/70' : 'bg-white/50 cursor-pointer'
+              mode === 'register'
+                ? 'bg-[#EAEAEA] dark:bg-[#232323]'
+                : 'bg-[#EAEAEA]/70 dark:bg-[#232323]/70 cursor-pointer'
             } backdrop-blur rounded-tr-lg p-2`}
             onClick={() => setMode('register')}
           >
             {dictionary.login.register}
           </p>
         </div>
-        <div className="bg-white/70 backdrop-blur p-8 rounded-b-lg shadow-lg w-3/4 md:w-1/2 xl:w-1/4">
+        <div className="bg-[#EAEAEA] dark:bg-[#232323] backdrop-blur p-8 rounded-b-lg shadow-lg w-3/4 md:w-1/2 xl:w-1/4">
           <h1 className="text-2xl text-center font-bold mb-4">ToDo App</h1>
-          <div className={`${mode === 'login' ? 'grid' : 'hidden'} gap-2`}>
+          <form
+            className={`${mode === 'login' ? 'grid' : 'hidden'} gap-2`}
+            onSubmit={handleLogin}
+          >
             <Input
               title={dictionary.login.email}
               type="email"
@@ -186,8 +195,11 @@ export default function ClientPage({
             <Button onClick={handleLogin} disabled={isLoginSubmit()}>
               {dictionary.login.login}
             </Button>
-          </div>
-          <div className={`${mode === 'register' ? 'grid' : 'hidden'} gap-2`}>
+          </form>
+          <form
+            className={`${mode === 'register' ? 'grid' : 'hidden'} gap-2`}
+            onSubmit={handleRegister}
+          >
             <Input
               title={dictionary.login.username}
               type="text"
@@ -223,7 +235,7 @@ export default function ClientPage({
             <Button onClick={handleRegister} disabled={isRegisterSubmit()}>
               {dictionary.login.register}
             </Button>
-          </div>
+          </form>
         </div>
       </section>
     </>
