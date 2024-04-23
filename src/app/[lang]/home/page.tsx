@@ -3,7 +3,7 @@
 /**
  * Author: CI5KO
  * Creation Date: April 14, 2024
- * Last Modification: April 14, 2024
+ * Last Modification: April 22, 2024
  *
  * Contact: hector_oliva16k@hotmail.com
  *
@@ -13,14 +13,31 @@
  * Any contributions to this repository are subject to the original terms stated herein.
  */
 
-import { type AvailableLang, getDictionary } from '@/utils/lang'
+import ClientPage from './client'
 import { decodeJWT } from '@/utils/services/user/cookies'
 import { getTasksByUserId } from './server/actions'
 import { cookies } from 'next/headers'
-import ClientPage from './client'
+import { type AvailableLang, getDictionary } from '@/utils/lang'
 
 import { type UserLogged } from '@/utils/services/user/types'
 import { type Task } from '@/utils/services/task/types'
+import { type Metadata } from 'next'
+
+const title: { [key: string]: string } = {
+  en: 'Settings',
+  es: 'Ajustes',
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: AvailableLang }
+}): Promise<Metadata> {
+  const { lang }: { lang: AvailableLang } = params
+  return {
+    title: title[lang],
+  }
+}
 
 export default async function Home({
   params: { lang },
