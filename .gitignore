@@ -13,6 +13,11 @@
 /.next/
 /out/
 
+# build
+sw.js
+fallback-*.js
+workbox-*.js
+
 # production
 /build
 
