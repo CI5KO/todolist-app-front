@@ -38,6 +38,11 @@
     "title": "Title",
     "description": "Description"
   },
+  "about": {
+    "githubProfile": "My GitHub Profile",
+    "githubRepoFront": "Frontend Repository",
+    "githubRepoBack": "Backend Repository"
+  },
   "settings": {
     "theme": "Theme",
     "language": "Language",

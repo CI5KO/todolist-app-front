@@ -1,7 +1,7 @@
 /**
  * Author: CI5KO
  * Creation Date: April 14, 2024
- * Last Modification: April 14, 2024
+ * Last Modification: May 05, 2024
  *
  * Contact: hector_oliva16k@hotmail.com
  *
@@ -11,7 +11,7 @@
  * Any contributions to this repository are subject to the original terms stated herein.
  */
 
-import Switch from '../Atoms/Switch'
+import { Switch } from '..'
 
 import { useTheme } from 'next-themes'
 import { MdDarkMode, MdLightMode } from 'react-icons/md'

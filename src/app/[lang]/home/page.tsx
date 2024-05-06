@@ -3,7 +3,7 @@
 /**
  * Author: CI5KO
  * Creation Date: April 14, 2024
- * Last Modification: April 23, 2024
+ * Last Modification: May 05, 2024
  *
  * Contact: hector_oliva16k@hotmail.com
  *
@@ -45,11 +45,11 @@ export default async function Home({
   params: { lang: AvailableLang }
 }) {
   const dictionary: any = await getDictionary(lang)
+
   const jwt: string | undefined = cookies().get('jwt')?.value
-
   if (!jwt) return <></>
-
   const user: UserLogged = decodeJWT(jwt)
+
   const tasks: Task[] = await getTasksByUserId(user.uuid)
 
   return (
