@@ -33,7 +33,7 @@ export default function Anchor({
   Icon,
 }: AnchorProps): JSX.Element {
   const router = useRouter()
-  const pathname = usePathname()
+  const pathname: string = usePathname()
   const isActivePath: boolean = pathname.endsWith(path)
 
   return (
